@@ -1,15 +1,15 @@
-DROP TABLE IF EXISTS `artists_account`;
-CREATE TABLE `artists_account` (
-  `ARTIST_ID` bigint(20) NOT NULL AUTO_INCREMENT,
-  `EMAIL` varchar(256) COLLATE utf8_bin NOT NULL UNIQUE,
-  `PERSONA` varchar(32) COLLATE utf8_bin NOT NULL UNIQUE,
-  `NICK` varchar(32) COLLATE utf8_bin NOT NULL UNIQUE,
-  `STATUS` smallint(6) NOT NULL,
-  `REGISTRATION_SOURCE` varchar(64) COLLATE utf8_bin DEFAULT NULL,
-  `EMAIL_STATUS` smallint(6) DEFAULT NULL,
-  PRIMARY KEY (`ARTIST_ID`),
-  KEY `ARTIST_ACCOUNT_EMAIL_IDX` (`EMAIL`(255)),
-  KEY `ARTIST_ACCOUNT_PERSONA_IDX` (`PERSONA`(32)),
-  KEY `ARTIST_ACCOUNT_NICK_IDX` (`NICK`(32))
+DROP TABLE IF EXISTS `user_account`;
+CREATE TABLE `user_account` (
+  `USER_ID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `EMAIL` varchar(255) COLLATE utf8_bin NOT NULL,
+  `PERSONA` varchar(32) COLLATE utf8_bin NOT NULL,
+  `NICK` varchar(255) COLLATE utf8_bin NOT NULL,
+  `STATUS` smallint(6) NOT NULL, /* active:1, deactive:2 */
+  `ROLE` smallint(6) NOT NULL, /* artist:1, fans:2 */
+  `REGISTRATION_SOURCE` varchar(64) COLLATE utf8_bin DEFAULT NULL, /* web, sina, qq, renren */
+  `EMAIL_STATUS` smallint(6) DEFAULT NULL, /* active:1, deactive:2 */
+  PRIMARY KEY (`USER_ID`),
+  KEY `USER_ACCOUNT_EMAIL_IDX` (`EMAIL`(255)),
+  KEY `USER_ACCOUNT_PERSONA_IDX` (`PERSONA`(32)),
+  KEY `USER_ACCOUNT_NICK_IDX` (`NICK`(255))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-

@@ -8,6 +8,7 @@ var pool  = mysql.createPool({
 });
 
 exports.execute = function(sql, cb){
+    logger.trace(sql);
     pool.query(sql, function(err, rows){
         logger.trace(err);
         logger.trace(rows);
