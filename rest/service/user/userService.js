@@ -1,12 +1,10 @@
-require('../util/stringUtil.js');
+require('../../util/stringUtil.js');
 
-var dao = require('../dao/userDAO.js');
+var dao = require('../../dao/userDAO.js');
 
-var NotFoundError = require('../error/notFoundError.js');
-var BadRequestError = require('../error/badRequestError.js');
-var ConflictError = require('../error/conflictError.js');
-
-var User = require('../model/user.js');
+var NotFoundError = require('../../error/notFoundError.js');
+var BadRequestError = require('../../error/badRequestError.js');
+var ConflictError = require('../../error/conflictError.js');
 
 exports.authUser = function(params, cb){
     var email = params.email;
@@ -20,7 +18,7 @@ exports.authUser = function(params, cb){
     dao.getUser(query, function(err, user){
         if(err) cb(err, null);
         if(!user) cb(new NotFoundError('Not found artist ' + JSON.stringify(query)), null);
-        dao.authUser(user.id, pwd, function(err, res){
+        dao.authUser(user.uid, pwd, function(err, res){
             if(err) cb(err, null);
             if(res) {
                 cb(null, JSON.stringify(user));
@@ -31,9 +29,9 @@ exports.authUser = function(params, cb){
     });
 }
 
-exports.setPassword = function(id, pwd, cb){
-    if(!id || !String.isPostINT(id)){
-        cb(new BadRequestError('Invalid user_id ' + id), null);
+exports.setPassword = function(uid, pwd, cb){
+    if(!uid || !String.isPostINT(uid)){
+        cb(new BadRequestError('Invalid user_id ' + uid), null);
     }
 
     //TODO
@@ -42,12 +40,12 @@ exports.setPassword = function(id, pwd, cb){
     }
 
     var query = new Object();
-    query.id = id;
+    query.uid = uid;
 
     dao.getUser(query, function(err, user){
         if(err) cb(err, null);
         if(!user) cb(new NotFoundError('Not found artist ' + JSON.stringify(query)), null);
-        dao.setPassword(user.id, pwd, function(err, res){
+        dao.setPassword(user.uid, pwd, function(err, res){
             if(err) cb(err, null);
             cb(null, res);
         })
@@ -55,17 +53,17 @@ exports.setPassword = function(id, pwd, cb){
 }
 
 exports.getUser = function(params, cb){
-    var id = params.id;
+    var uid = params.uid;
     var email = params.email;
     var persona = params.persona;
     var nick = params.nick;
 
-    if(!id && !email && !persona && !nick) {
+    if(!uid && !email && !persona && !nick) {
         cb(new BadRequestError('Not enough params ' + JSON.stringify(params)),null);
     }
 
-    if(id && !String.isPostINT(id)){
-        cb(new BadRequestError('Invalid user_id ' + id),null);
+    if(uid && !String.isPostINT(uid)){
+        cb(new BadRequestError('Invalid user_id ' + uid),null);
     }
 
     if((email && !email.length) || (persona && !persona.length) || (nick && !nick.length)) {
@@ -143,14 +141,17 @@ exports.createUser = function(params, cb){
         }
         dao.createUser(params, function(err, user){
             if(err) cb(err, null);
-            cb(null, JSON.stringify(user));
+            exports.setPassword(user.uid, pwd, function(err, res){
+                //TODO: need to revert here?
+                cb(null, JSON.stringify(user));
+            });
         })
     });
 }
 
-exports.updateUser = function(id, params, cb){
-    if(!id || !String.isPostINT(id)){
-        cb(new BadRequestError('Invalid artist_id ' + id),null);
+exports.updateUser = function(uid, params, cb){
+    if(!uid || !String.isPostINT(uid)){
+        cb(new BadRequestError('Invalid artist_id ' + uid),null);
     }
 
     var email = params.email;
@@ -171,11 +172,11 @@ exports.updateUser = function(id, params, cb){
     }
 
     var query = new Object();
-    query.id = id;
+    query.uid = uid;
     dao.getUser(query, function(err, user){
         if(err) cb(err, null);
         if(!user) cb(new NotFoundError('Not found artist ' + JSON.stringify(query)), null);
-        dao.updateUser(id, params, function(err, user){
+        dao.updateUser(uid, params, function(err, user){
             if(err) cb(err, null);
             cb(null, JSON.stringify(user));
         })

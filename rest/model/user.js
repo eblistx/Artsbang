@@ -1,5 +1,5 @@
 function User(userdb){
-    this.id = userdb.USER_ID;
+    this.uid = userdb.USER_ID;
     this.email = userdb.EMAIL;
     this.persona = userdb.PERSONA;
     this.nick = userdb.NICK;

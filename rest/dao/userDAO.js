@@ -2,11 +2,26 @@ require('../util/stringUtil.js');
 
 var pool = require('../db/mysqlconnpool.js');
 var User = require('../model/user.js');
-var logger = require('../util/logUtil.js').logger('userDAO');
+var squel = require('squel');
+var sqlHelper = require('../db/sqlHelper.js');
 
-exports.authUser = function(id, pwd, cb){
-    var sql = "Select * from artsbang.user_password where user_id = '{0}' && password = '{1}';";
-    sql = String.format(sql, id, pwd);
+//tables
+var user_password = sqlHelper.tableDefine({
+    name: "artsbang.user_password",
+    columns: ["user_id", "password"]
+});
+
+var user_account = sqlHelper.tableDefine({
+    name: "artsbang.user_account",
+    columns: ["user_id", "email", "persona", "nick", "role", "status", "registration_source", "email_status"]
+});
+
+exports.authUser = function(uid, pwd, cb){
+    var query = squel.select();
+    query.from(user_password.name)
+        .where(user_password.user_id + " = '" + uid + "'")
+        .where(user_password.password + " = '" + pwd + "'");
+    var sql = query.toString();
     pool.execute(sql, function(err, rows){
         if(err) cb(err, null);
         if(rows.length > 0){
@@ -17,15 +32,20 @@ exports.authUser = function(id, pwd, cb){
     });
 }
 
-exports.setPassword = function(id, pwd, cb){
-    var sql = "Select * from artsbang.user_password where user_id='{0}';";
-    sql = String.format(sql, id);
+exports.setPassword = function(uid, pwd, cb){
+    var query = squel.select();
+    query.from(user_password.name)
+        .where(user_password.user_id + " = '" + uid + "'");
+    var sql = query.toString();
     pool.execute(sql, function(err, rows){
         if(err) cb(err, null);
         if(rows.length > 0){
             //update
-            sql = "Update artsbang.user_password set password = '{0}' where user_id = '{1}';";
-            sql = String.format(sql, pwd, id);
+            query = squel.update();
+            query.table(user_password.name)
+                .set(user_password.password, pwd)
+                .where(user_password.user_id + " = '" + uid + "'");
+            sql = query.toString();
             pool.execute(sql, function(err, rows){
                 if(err) cb(err, null);
                 if(rows.length > 0){
@@ -36,8 +56,11 @@ exports.setPassword = function(id, pwd, cb){
             });
         }else{
             //create
-            sql = "Insert into artsbang.user_password (user_id, password) values ('{0}','{1}');";
-            sql = String.format(sql, id, pwd);
+            query = squel.insert();
+            query.into(user_password.name)
+                .set(user_password.user_id, uid)
+                .set(user_password.password, pwd);
+            sql = query.toString();
             pool.execute(sql, function(err, rows){
                 if(err) cb(err, null);
                 if(rows.length > 0){
@@ -56,28 +79,18 @@ exports.isLegalRole = function(role){
 };
 
 exports.getUser = function(query, cb){
-    var id = query.id;
+    var uid = query.uid;
     var email = query.email;
     var persona = query.persona;
     var nick = query.nick;
 
-    var sql = "Select * from artsbang.user_account where "
-    var where = "";
-    if(id) where += "user_id = '" + id + "'";
-    if(email) {
-        if(where.length > 0) where += " and ";
-        where += "email = '" + email + "'";
-    }
-    if(persona) {
-        if(where.length > 0) where += " and ";
-        where += "persona= '" + persona + "'";
-    }
-    if(nick) {
-        if(where.length > 0) where += " and ";
-        where += "nick= '" + nick + "'";
-    }
-    sql = sql + where;
-    logger.trace(sql);
+    var query = squel.select();
+    query.from(user_account.name);
+    if(uid) query.where(user_account.user_id + "='" + uid + "'");
+    if(email) query.where(user_account.email + "='" + email + "'");
+    if(persona) query.where(user_account.persona + "='" + persona + "'");
+    if(nick) query.where(user_account.nick + "='" + nick + "'");
+    var sql = query.toString();
 
     pool.execute(sql, function(err, rows){
         if(err) cb(err, null);
@@ -94,20 +107,21 @@ exports.searchUser = function(query, cb){
     var persona = query.persona;
     var nick = query.nick;
 
-    var sql = "Select * from artsbang.user_account where "
+    var query = squel.select();
+    query.from(user_account.name);
     var where = "";
-    if(email) where += "email = '" + email + "'";
+    if(email) where += user_account.email + " = '" + email + "'";
     if(persona) {
-        if(where.length > 0) where += " or ";
-        where += "persona= '" + persona + "'";
+        if(where.length > 0) where += " OR ";
+        where += user_account.persona + " = '" + persona + "'";
     }
     if(nick) {
-        if(where.length > 0) where += " or ";
-        where += "nick= '" + nick + "'";
+        if(where.length > 0) where += " OR ";
+        where += user_account.nick + " = '" + nick + "'";
     }
-    sql = sql + where;
-    logger.trace(sql);
+    query.where(where);
 
+    var sql = query.toString();
     pool.execute(sql, function(err, rows){
         if(err) cb(err, null);
         if(rows.length > 0){
@@ -127,48 +141,47 @@ exports.createUser = function(params, cb){
     var persona = params.persona;
     var nick = params.nick;
     var role = params.role;
+    var regSource = params.regSource;
 
-    var sql = "Insert into artsbang.user_account (email, persona, nick, status, role) values ('{0}','{1}','{2}', 1, '{3}');";
-    sql = String.format(sql, email, persona, nick, role);
+    var query = squel.insert();
+    query.into(user_account.name)
+        .set(user_account.email, email)
+        .set(user_account.persona, persona)
+        .set(user_account.nick, nick)
+        .set(user_account.status, 1)
+        .set(user_account.role, role)
+        .set(user_account.email_status, 0)
+        .set(user_account.registration_source, regSource);
 
-    logger.trace(sql);
+    var sql = query.toString();
     pool.execute(sql, function(err, rows){
         if(err) cb(err, null);
-        var id = rows.insertId;
+        var uid = rows.insertId;
         var query = new Object();
-        query.id = id;
+        query.uid = uid;
         exports.getUser(query, cb);
     });
 };
 
-exports.updateUser = function(id, params, cb){
+exports.updateUser = function(uid, params, cb){
     var email = params.email;
     var persona = params.persona;
     var nick = params.nick;
     var role = params.role;
 
-    var sql = "Update artsbang.artists_account set ";
-    var body = "";
-    if(email)body += "email = '" + email + "'";
-    if(persona) {
-        if(body.length > 0) body += " , ";
-        body += "persona= '" + persona + "'";
-    }
-    if(nick) {
-        if(body.length > 0) body += " , ";
-        body += "nick= '" + nick + "'";
-    }
-    if(role) {
-        if(body.length > 0) body += " , ";
-        body += "role= '" + role + "'";
-    }
+    var query = squel.update();
+    query.table(user_account.name);
+    if(email) query.set(user_account.email, email);
+    if(persona) query.set(user_account.persona, persona);
+    if(nick) query.set(user_account.nick, nick);
+    if(role) query.set(user_account.role, role);
+    query.where(user_account.user_id + " = '" + uid + "'");
 
-    sql = sql + body + " where user_id='" + id + "'";
-    logger.trace(sql);
+    var sql = query.toString();
     pool.execute(sql, function(err, rows){
         if(err) cb(err, null);
         var query = new Object();
-        query.id = id;
+        query.uid = uid;
         exports.getUser(query, cb);
     });
 };
