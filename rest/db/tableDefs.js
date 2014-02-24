@@ -17,4 +17,9 @@ tableDefs.user_profile = sqlHelper.tableDefine({
     columns: ["user_id", "icon", "blog", "desc", "gender", "location", "job", "company", "verify"]
 });
 
+tableDefs.activity = sqlHelper.tableDefine({
+    name: "artsbang.activity",
+    columns: ["activity_id", "user_id", "type", "content"]
+});
+
 module.exports = tableDefs;

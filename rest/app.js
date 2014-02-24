@@ -21,6 +21,7 @@ app.use(function(err, req, res, next) {
 //services
 var userService = require('./service/user/userService.js');
 var userProfileService = require('./service/user/userProfileService.js');
+var activityService = require('./service/activity/activityService.js');
 
 /*
   get auth
@@ -201,17 +202,45 @@ app.post('/1/users/:uid/profile', function(req, res, next){
     });
 });
 
+/*
+ get user_profile
+
+ input:
+    params
+        user_id
+
+ output:
+        list of activities
+ */
+app.get('/1/users/:uid/activities', function(req, res, next){
+    activityService.getUserActivity(req.params.uid, function(err, activites){
+        if(err) next(err);
+        res.end(activites);
+    })
+});
+
+/*
+ get user_profile
+
+ input:
+    params
+        user_id
+    body
+        type
+        content
+
+ output:
+        activity
+ */
+app.post('/1/users/:uid/activities', function(req, res, next){
+    activityService.createActivity(req.params.uid, req.body, function(err, activity){
+        if(err) next(err);
+        res.end(activity);
+    });
+});
+
 //artists reputation/point
 app.get('/1/users/:id/artist/award', function(req, res, next){
-
-});
-
-//artists activity
-app.get('/1/users/:id/artist/activities', function(req, res, next){
-
-});
-
-app.post('/1/users/:id/artist/activities', function(req, res, next){
 
 });
 
@@ -224,16 +253,11 @@ app.post('/1/users/:id/artist/mission/:mid', function(req, res, next){
 
 });
 
-//fans activity
-app.get('/1/users/:id/artist/activities', function(req, res, next){
-
-});
-
-app.post('/1/users/:id/artist/activities', function(req, res, next){
-
-});
-
 //relationship
+app.get('/1/users/:id/follows', function(req, res, next){
+
+});
+
 app.get('/1/users/:id/fans', function(req, res, next){
 
 });
