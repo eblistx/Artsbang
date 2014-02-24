@@ -1,5 +1,7 @@
 require('../../util/stringUtil.js');
 
+var logger = require('../util/logUtil.js').logger('userService');
+
 var dao = require('../../dao/userDAO.js');
 
 var NotFoundError = require('../../error/notFoundError.js');
@@ -143,6 +145,7 @@ exports.createUser = function(params, cb){
             if(err) cb(err, null);
             exports.setPassword(user.uid, pwd, function(err, res){
                 //TODO: need to revert here?
+                logger.error("Set password error, user_id = " + user.uid + ", detail: " + err);
                 cb(null, JSON.stringify(user));
             });
         })

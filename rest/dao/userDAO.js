@@ -1,5 +1,7 @@
 require('../util/stringUtil.js');
 
+var logger = require('../util/logUtil.js').logger('userDAO');
+
 var pool = require('../db/mysqlconnpool.js');
 var User = require('../model/user.js');
 var squel = require('squel');
