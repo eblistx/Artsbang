@@ -175,11 +175,23 @@ app.get('/1/users/:uid/profile', function(req, res, next){
 
 });
 
-app.post('/1/users/:id/profile', function(req, res, next){
+/*
+ post user_profile (create or update)
 
-});
+ input:
+        uid
+        icon(optional)
+        blog(optional)
+        desc(optional)
+        gender(optional)
+        location(optional)
+        job(optional)
+        company(optional)
 
-app.put('/1/users/:id/profile', function(req, res, next){
+ output:
+        user_profile
+ */
+app.post('/1/users/:uid/profile', function(req, res, next){
 
 });
 

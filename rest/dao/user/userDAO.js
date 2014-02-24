@@ -1,11 +1,11 @@
-require('../util/stringUtil.js');
+require('../../util/stringUtil.js');
 
-var logger = require('../util/logUtil.js').logger('userDAO');
+var logger = require('../../util/logUtil.js').logger('userDAO');
 
-var pool = require('../db/mysqlconnpool.js');
-var User = require('../model/user.js');
+var pool = require('../../db/mysqlconnpool.js');
+var User = require('../../model/user/user.js');
 var squel = require('squel');
-var tableDefs = require('../db/tableDefs.js');
+var tableDefs = require('../../db/tableDefs.js');
 
 //tables
 var user_password = tableDefs.user_password;

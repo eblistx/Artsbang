@@ -2,7 +2,7 @@ require('../../util/stringUtil.js');
 
 var logger = require('../util/logUtil.js').logger('userService');
 
-var dao = require('../../dao/userDAO.js');
+var dao = require('../../dao/user/userDAO.js');
 
 var NotFoundError = require('../../error/notFoundError.js');
 var BadRequestError = require('../../error/badRequestError.js');
