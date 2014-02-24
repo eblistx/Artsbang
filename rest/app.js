@@ -18,8 +18,9 @@ app.use(function(err, req, res, next) {
     res.end();
 });
 
-//service
+//services
 var userService = require('./service/user/userService.js');
+var userProfileService = require('./service/user/userProfileService.js');
 
 /*
   get auth
@@ -171,8 +172,10 @@ app.post('/1/users/search', function (req, res, next) {
         user_profile
 */
 app.get('/1/users/:uid/profile', function(req, res, next){
-
-
+    userProfileService.getUserProfile(req.params.uid, function(err, userProfile){
+        if(err) next(err);
+        res.end(userProfile);
+    });
 });
 
 /*
@@ -192,7 +195,10 @@ app.get('/1/users/:uid/profile', function(req, res, next){
         user_profile
  */
 app.post('/1/users/:uid/profile', function(req, res, next){
-
+    userProfileService.createOrUpdateUserProfile(req.params.uid, req.body, function(err, userProfile){
+        if(err) next(err);
+        res.end(userProfile);
+    });
 });
 
 //artists reputation/point

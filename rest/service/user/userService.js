@@ -19,7 +19,7 @@ exports.authUser = function(params, cb){
 
     dao.getUser(query, function(err, user){
         if(err) cb(err, null);
-        if(!user) cb(new NotFoundError('Not found artist ' + JSON.stringify(query)), null);
+        if(!user) cb(new NotFoundError('Not found user ' + JSON.stringify(query)), null);
         dao.authUser(user.uid, pwd, function(err, res){
             if(err) cb(err, null);
             if(res) {
@@ -46,7 +46,7 @@ exports.setPassword = function(uid, pwd, cb){
 
     dao.getUser(query, function(err, user){
         if(err) cb(err, null);
-        if(!user) cb(new NotFoundError('Not found artist ' + JSON.stringify(query)), null);
+        if(!user) cb(new NotFoundError('Not found user ' + JSON.stringify(query)), null);
         dao.setPassword(user.uid, pwd, function(err, res){
             if(err) cb(err, null);
             cb(null, res);
@@ -74,7 +74,7 @@ exports.getUser = function(params, cb){
 
     dao.getUser(params, function(err, user){
         if(err) cb(err, null);
-        if(!user) cb(new NotFoundError('Not found artist ' + JSON.stringify(params)), null);
+        if(!user) cb(new NotFoundError('Not found user ' + JSON.stringify(params)), null);
         cb(null, JSON.stringify(user));
     });
 }
@@ -94,7 +94,7 @@ exports.searchUser = function(params, cb){
 
     dao.searchUser(params, function(err, users){
         if(err) cb(err, null);
-        if(!users) cb(new NotFoundError('Not found artist ' + JSON.stringify(params)), null);
+        if(!users) cb(new NotFoundError('Not found user ' + JSON.stringify(params)), null);
         cb(null, JSON.stringify(users));
     });
 }
@@ -154,7 +154,7 @@ exports.createUser = function(params, cb){
 
 exports.updateUser = function(uid, params, cb){
     if(!uid || !String.isPostINT(uid)){
-        cb(new BadRequestError('Invalid artist_id ' + uid),null);
+        cb(new BadRequestError('Invalid user_id ' + uid),null);
     }
 
     var email = params.email;
@@ -178,7 +178,7 @@ exports.updateUser = function(uid, params, cb){
     query.uid = uid;
     dao.getUser(query, function(err, user){
         if(err) cb(err, null);
-        if(!user) cb(new NotFoundError('Not found artist ' + JSON.stringify(query)), null);
+        if(!user) cb(new NotFoundError('Not found user ' + JSON.stringify(query)), null);
         dao.updateUser(uid, params, function(err, user){
             if(err) cb(err, null);
             cb(null, JSON.stringify(user));
