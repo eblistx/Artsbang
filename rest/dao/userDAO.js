@@ -5,18 +5,11 @@ var logger = require('../util/logUtil.js').logger('userDAO');
 var pool = require('../db/mysqlconnpool.js');
 var User = require('../model/user.js');
 var squel = require('squel');
-var sqlHelper = require('../db/sqlHelper.js');
+var tableDefs = require('../db/tableDefs.js');
 
 //tables
-var user_password = sqlHelper.tableDefine({
-    name: "artsbang.user_password",
-    columns: ["user_id", "password"]
-});
-
-var user_account = sqlHelper.tableDefine({
-    name: "artsbang.user_account",
-    columns: ["user_id", "email", "persona", "nick", "role", "status", "registration_source", "email_status"]
-});
+var user_password = tableDefs.user_password;
+var user_account = tableDefs.user_account;
 
 exports.authUser = function(uid, pwd, cb){
     var query = squel.select();
