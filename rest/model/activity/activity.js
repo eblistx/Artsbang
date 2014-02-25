@@ -5,7 +5,7 @@ function Activity(db){
     this.uid = db.USER_ID;
     this.type = db.TYPE;
     this.content = db.CONTENT;
-    this.modifyDate = moment(db.MODIFY_DATE).format('YYYY-MM-DD HH:MM:SS');
+    this.modifyTime = moment(db.MODIFY_TIME).format('YYYY-MM-DD HH:MM:SS');
 }
 
 module.exports = Activity;

@@ -15,7 +15,8 @@ var activity = tableDefs.activity;
 exports.getUserActivities = function (uid, cb) {
     var query = squel.select();
     query.from(activity.name)
-        .where(activity.user_id + " = '" + uid + "'");
+        .where(activity.user_id + " = '" + uid + "'")
+        .where(activity.status + "= 1");//active
 
     var sql = query.toString();
     pool.execute(sql, function (err, rows) {
@@ -32,7 +33,8 @@ exports.getUserActivities = function (uid, cb) {
 exports.getActivity = function (aid, cb) {
     var query = squel.select();
     query.from(activity.name)
-        .where(activity.activity_id + " = '" + aid + "'");
+        .where(activity.activity_id + " = '" + aid + "'")
+        .where(activity.status + "= 1");//active
 
     var sql = query.toString();
     pool.execute(sql, function (err, rows) {
@@ -53,11 +55,11 @@ exports.createActivity = function (uid, params, cb) {
     var content = params.content;
 
     var query = squel.insert();
-    query.into(activity.name);
-    query.set(activity.user_id, uid);
-    query.set(activity.type, type);
-    query.set(activity.content, content);
-    query.set(activity.modify_date, sqlHelper.dateFormat(new Date()));
+    query.into(activity.name)
+        .set(activity.user_id, uid)
+        .set(activity.type, type)
+        .set(activity.content, content)
+        .set(activity.modify_time, sqlHelper.dateFormat(new Date()));
 
     var sql = query.toString();
     pool.execute(sql, function (err, rows) {
@@ -77,11 +79,11 @@ exports.updateActivity = function (aid, params, cb) {
     var content = params.content;
 
     var query = squel.update();
-    query.table(activity.name);
-    query.set(activity.type, type);
-    query.set(activity.content, content);
-    query.set(activity.modify_date, sqlHelper.dateFormat(new Date()));
-    query.where(activity.activity_id + "='" + aid + "'")
+    query.table(activity.name)
+        .set(activity.type, type)
+        .set(activity.content, content)
+        .set(activity.modify_time, sqlHelper.dateFormat(new Date()))
+        .where(activity.activity_id + "='" + aid + "'");
 
     var sql = query.toString();
     pool.execute(sql, function (err, rows) {

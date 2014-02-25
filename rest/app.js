@@ -22,6 +22,7 @@ app.use(function(err, req, res, next) {
 var userService = require('./service/user/userService.js');
 var userProfileService = require('./service/user/userProfileService.js');
 var activityService = require('./service/activity/activityService.js');
+var relationshipService = require('./service/relationship/relationshipService.js');
 
 /*
   get auth
@@ -264,17 +265,93 @@ app.post('/1/users/:id/artist/mission/:mid', function(req, res, next){
 
 });
 
-//relationship
-app.get('/1/users/:id/follows', function(req, res, next){
 
+/*
+ get follows
+
+ input:
+    params
+        user_id
+
+ output:
+         list of user_ids
+ */
+app.get('/1/users/:uid/follows', function(req, res, next){
+    relationshipService.getFollows(req.params.uid, function(err, uids){
+        if(err) next(err);
+        res.end(uids);
+    });
 });
 
-app.get('/1/users/:id/fans', function(req, res, next){
+/*
+ get fans
 
+ input:
+    params
+        user_id
+
+ output:
+        list of user_ids
+ */
+app.get('/1/users/:uid/fans', function(req, res, next){
+    relationshipService.getFans(req.params.uid, function(err, uids){
+        if(err) next(err);
+        res.end(uids);
+    });
 });
 
+/*
+ get relationship
+
+ input:
+    body
+        leader_id
+        follower_id
+
+ output:
+        relationship
+ */
+app.get('/1/relationship/', function(req, res, next){
+    relationshipService.getRelationship(req.body.leader_id, req.body.follower_id, function(err, relationship){
+        if(err) next(err);
+        res.end(relationship);
+    });
+});
+
+/*
+ post relationship
+
+ input:
+    body
+       leader_id
+       follower_id
+
+ output:
+        true
+*/
 app.post('/1/relationship/', function(req, res, next){
+    relationshipService.createRelationship(req.body.leader_id, req.body.follower_id, function(err, result){
+        if(err) next(err);
+        res.end(result);
+    });
+});
 
+/*
+ delete relationship
+
+ input:
+    body
+        leader_id
+        follower_id
+
+ output:
+        true
+ */
+app.delete('/1/relationship/', function(req, res, next){
+    relationshipService.deleteRelationship(req.body.leader_id, req.body.follower_id, function(err, result){
+        if(err) next(err);
+        res.end(result);
+    });
 });
 
 //works

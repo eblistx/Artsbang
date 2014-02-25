@@ -6,6 +6,7 @@ var pool = require('../../db/mysqlconnpool.js');
 var User = require('../../model/user/user.js');
 var squel = require('squel');
 var tableDefs = require('../../db/tableDefs.js');
+var sqlHelper = require('../../db/sqlHelper.js');
 
 //tables
 var user_password = tableDefs.user_password;
@@ -47,6 +48,7 @@ exports.setPassword = function (uid, pwd, cb) {
             query = squel.update();
             query.table(user_password.name)
                 .set(user_password.password, pwd)
+                .set(user_password.modify_time, sqlHelper.dateFormat(new Date()))
                 .where(user_password.user_id + " = '" + uid + "'");
             sql = query.toString();
             pool.execute(sql, function (err, rows) {
@@ -65,7 +67,8 @@ exports.setPassword = function (uid, pwd, cb) {
             query = squel.insert();
             query.into(user_password.name)
                 .set(user_password.user_id, uid)
-                .set(user_password.password, pwd);
+                .set(user_password.password, pwd)
+                .set(user_password.modify_time, sqlHelper.dateFormat(new Date()));
             sql = query.toString();
             pool.execute(sql, function (err, rows) {
                 if (err) {
@@ -152,6 +155,7 @@ exports.createUser = function (params, cb) {
     var role = params.role;
     var regSource = params.regSource;
 
+    var now = sqlHelper.dateFormat(new Date());
     var query = squel.insert();
     query.into(user_account.name)
         .set(user_account.email, email)
@@ -160,7 +164,9 @@ exports.createUser = function (params, cb) {
         .set(user_account.status, 1)
         .set(user_account.role, role)
         .set(user_account.email_status, 0)
-        .set(user_account.registration_source, regSource);
+        .set(user_account.registration_source, regSource)
+        .set(user_password.create_time, now)
+        .set(user_password.modify_time, now);
 
     var sql = query.toString();
     pool.execute(sql, function (err, rows) {
@@ -187,6 +193,7 @@ exports.updateUser = function (uid, params, cb) {
     if (persona) query.set(user_account.persona, persona);
     if (nick) query.set(user_account.nick, nick);
     if (role) query.set(user_account.role, role);
+    query.set(user_account.modify_time, sqlHelper.dateFormat(new Date()));
     query.where(user_account.user_id + " = '" + uid + "'");
 
     var sql = query.toString();

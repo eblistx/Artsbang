@@ -6,6 +6,7 @@ var pool = require('../../db/mysqlconnpool.js');
 var UserProfile = require('../../model/user/userProfile.js');
 var squel = require('squel');
 var tableDefs = require('../../db/tableDefs.js');
+var sqlHelper = require('../../db/sqlHelper.js');
 
 //tables
 var user_profile = tableDefs.user_profile;
@@ -61,6 +62,7 @@ exports.createOrUpdateUserProfile = function (uid, params, cb) {
             if (location)query.set(user_profile.location, location);
             if (job)query.set(user_profile.job, job);
             if (company)query.set(user_profile.company, company);
+            query.set(user_profile.modify_time, sqlHelper.dateFormat(new Date()));
             query.where(user_profile.user_id + " ='" + uid + "'");
 
             sql = query.toString();
@@ -86,6 +88,7 @@ exports.createOrUpdateUserProfile = function (uid, params, cb) {
             if (location)query.set(user_profile.location, location);
             if (job)query.set(user_profile.job, job);
             if (company)query.set(user_profile.company, company);
+            query.set(user_profile.modify_time, sqlHelper.dateFormat(new Date()))
 
             sql = query.toString();
             pool.execute(sql, function (err, rows) {
