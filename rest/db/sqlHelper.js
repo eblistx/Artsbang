@@ -10,5 +10,5 @@ exports.tableDefine = function(config){
 }
 
 exports.dateFormat = function(date){
-    return moment(date).format('YYYY-MM-DD HH:MM:SS');
+    return moment(date).format('YYYY-MM-DD HH:mm:ss');
 }

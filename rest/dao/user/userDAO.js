@@ -165,8 +165,8 @@ exports.createUser = function (params, cb) {
         .set(user_account.role, role)
         .set(user_account.email_status, 0)
         .set(user_account.registration_source, regSource)
-        .set(user_password.create_time, now)
-        .set(user_password.modify_time, now);
+        .set(user_account.create_time, now)
+        .set(user_account.modify_time, now);
 
     var sql = query.toString();
     pool.execute(sql, function (err, rows) {
