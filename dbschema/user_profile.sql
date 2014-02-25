@@ -5,6 +5,7 @@ CREATE TABLE `user_profile` (
   `BLOG` varchar(256) COLLATE utf8_bin DEFAULT NULL,
   `DESC` varchar(1024) COLLATE utf8_bin DEFAULT NULL,
   `GENDER` smallint(6) NOT NULL DEFAULT 0, /* male:1, female:2 */
+  `BIRTH` date DEFAULT NULL,
   `LOCATION` varchar(64) COLLATE utf8_bin DEFAULT NULL,
   `JOB` varchar(64) COLLATE utf8_bin DEFAULT NULL,
   `COMPANY` varchar(128) COLLATE utf8_bin DEFAULT NULL,

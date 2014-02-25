@@ -14,12 +14,12 @@ tableDefs.user_account = sqlHelper.tableDefine({
 
 tableDefs.user_profile = sqlHelper.tableDefine({
     name: "artsbang.user_profile",
-    columns: ["user_id", "icon", "blog", "desc", "gender", "location", "job", "company", "verify"]
+    columns: ["user_id", "icon", "blog", "desc", "gender", "birth", "location", "job", "company", "verify"]
 });
 
 tableDefs.activity = sqlHelper.tableDefine({
     name: "artsbang.activity",
-    columns: ["activity_id", "user_id", "type", "content"]
+    columns: ["activity_id", "user_id", "type", "content", "modify_date"]
 });
 
 module.exports = tableDefs;

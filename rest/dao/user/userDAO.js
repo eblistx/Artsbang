@@ -11,56 +11,70 @@ var tableDefs = require('../../db/tableDefs.js');
 var user_password = tableDefs.user_password;
 var user_account = tableDefs.user_account;
 
-exports.authUser = function(uid, pwd, cb){
+exports.authUser = function (uid, pwd, cb) {
     var query = squel.select();
     query.from(user_password.name)
         .where(user_password.user_id + " = '" + uid + "'")
         .where(user_password.password + " = '" + pwd + "'");
     var sql = query.toString();
-    pool.execute(sql, function(err, rows){
-        if(err) cb(err, null);
-        if(rows.length > 0){
+
+    pool.execute(sql, function (err, rows) {
+        if (err) {
+            cb(err, null);
+            return;
+        }
+        if (rows.length > 0) {
             cb(null, true);
-        }else{
+        } else {
             cb(null, false);
         }
     });
 }
 
-exports.setPassword = function(uid, pwd, cb){
+exports.setPassword = function (uid, pwd, cb) {
     var query = squel.select();
     query.from(user_password.name)
         .where(user_password.user_id + " = '" + uid + "'");
     var sql = query.toString();
-    pool.execute(sql, function(err, rows){
-        if(err) cb(err, null);
-        if(rows.length > 0){
+
+    pool.execute(sql, function (err, rows) {
+        if (err) {
+            cb(err, null);
+            return;
+        }
+        if (rows.length > 0) {
             //update
             query = squel.update();
             query.table(user_password.name)
                 .set(user_password.password, pwd)
                 .where(user_password.user_id + " = '" + uid + "'");
             sql = query.toString();
-            pool.execute(sql, function(err, rows){
-                if(err) cb(err, null);
-                if(rows.length > 0){
+            pool.execute(sql, function (err, rows) {
+                if (err) {
+                    cb(err, null);
+                    return;
+                }
+                if (rows.length > 0) {
                     cb(null, true);
-                }else{
+                } else {
                     cb(null, false);
                 }
             });
-        }else{
+        } else {
             //create
             query = squel.insert();
             query.into(user_password.name)
                 .set(user_password.user_id, uid)
                 .set(user_password.password, pwd);
             sql = query.toString();
-            pool.execute(sql, function(err, rows){
-                if(err) cb(err, null);
-                if(rows.length > 0){
+            pool.execute(sql, function (err, rows) {
+                if (err) {
+                    cb(err, null);
+                    return;
+                }
+                if (rows.length > 0) {
                     cb(null, true);
-                }else{
+                } else {
                     cb(null, false);
                 }
             });
@@ -68,12 +82,12 @@ exports.setPassword = function(uid, pwd, cb){
     });
 }
 
-exports.isLegalRole = function(role){
-    if(role != '1' && role !='2')return false;
+exports.isLegalRole = function (role) {
+    if (role != '1' && role != '2')return false;
     return true;
 };
 
-exports.getUser = function(query, cb){
+exports.getUser = function (query, cb) {
     var uid = query.uid;
     var email = query.email;
     var persona = query.persona;
@@ -81,23 +95,26 @@ exports.getUser = function(query, cb){
 
     var query = squel.select();
     query.from(user_account.name);
-    if(uid) query.where(user_account.user_id + "='" + uid + "'");
-    if(email) query.where(user_account.email + "='" + email + "'");
-    if(persona) query.where(user_account.persona + "='" + persona + "'");
-    if(nick) query.where(user_account.nick + "='" + nick + "'");
+    if (uid) query.where(user_account.user_id + "='" + uid + "'");
+    if (email) query.where(user_account.email + "='" + email + "'");
+    if (persona) query.where(user_account.persona + "='" + persona + "'");
+    if (nick) query.where(user_account.nick + "='" + nick + "'");
     var sql = query.toString();
 
-    pool.execute(sql, function(err, rows){
-        if(err) cb(err, null);
-        if(rows.length > 0){
+    pool.execute(sql, function (err, rows) {
+        if (err) {
+            cb(err, null);
+            return;
+        }
+        if (rows.length > 0) {
             cb(null, new User(rows[0]));
-        }else{
+        } else {
             cb(null, null);
         }
     });
 };
 
-exports.searchUser = function(query, cb){
+exports.searchUser = function (query, cb) {
     var email = query.email;
     var persona = query.persona;
     var nick = query.nick;
@@ -105,33 +122,30 @@ exports.searchUser = function(query, cb){
     var query = squel.select();
     query.from(user_account.name);
     var where = "";
-    if(email) where += user_account.email + " = '" + email + "'";
-    if(persona) {
-        if(where.length > 0) where += " OR ";
+    if (email) where += user_account.email + " = '" + email + "'";
+    if (persona) {
+        if (where.length > 0) where += " OR ";
         where += user_account.persona + " = '" + persona + "'";
     }
-    if(nick) {
-        if(where.length > 0) where += " OR ";
+    if (nick) {
+        if (where.length > 0) where += " OR ";
         where += user_account.nick + " = '" + nick + "'";
     }
     query.where(where);
 
     var sql = query.toString();
-    pool.execute(sql, function(err, rows){
-        if(err) cb(err, null);
-        if(rows.length > 0){
-            var users = new Array();
-            for(var i=0; i<rows.length; i++){
-                users.push(new User(rows[i]));
-            }
-            cb(null, users);
-        }else{
-            cb(null, null);
+    pool.execute(sql, function (err, rows) {
+        if (err) {
+            cb(err, null);
+            return;
         }
+        var users = new Array();
+        for (var i = 0; i < rows.length; i++) users.push(new User(rows[i]));
+        cb(null, users);
     });
 };
 
-exports.createUser = function(params, cb){
+exports.createUser = function (params, cb) {
     var email = params.email;
     var persona = params.persona;
     var nick = params.nick;
@@ -149,8 +163,11 @@ exports.createUser = function(params, cb){
         .set(user_account.registration_source, regSource);
 
     var sql = query.toString();
-    pool.execute(sql, function(err, rows){
-        if(err) cb(err, null);
+    pool.execute(sql, function (err, rows) {
+        if (err) {
+            cb(err, null);
+            return;
+        }
         var uid = rows.insertId;
         var query = new Object();
         query.uid = uid;
@@ -158,7 +175,7 @@ exports.createUser = function(params, cb){
     });
 };
 
-exports.updateUser = function(uid, params, cb){
+exports.updateUser = function (uid, params, cb) {
     var email = params.email;
     var persona = params.persona;
     var nick = params.nick;
@@ -166,15 +183,18 @@ exports.updateUser = function(uid, params, cb){
 
     var query = squel.update();
     query.table(user_account.name);
-    if(email) query.set(user_account.email, email);
-    if(persona) query.set(user_account.persona, persona);
-    if(nick) query.set(user_account.nick, nick);
-    if(role) query.set(user_account.role, role);
+    if (email) query.set(user_account.email, email);
+    if (persona) query.set(user_account.persona, persona);
+    if (nick) query.set(user_account.nick, nick);
+    if (role) query.set(user_account.role, role);
     query.where(user_account.user_id + " = '" + uid + "'");
 
     var sql = query.toString();
-    pool.execute(sql, function(err, rows){
-        if(err) cb(err, null);
+    pool.execute(sql, function (err, rows) {
+        if (err) {
+            cb(err, null);
+            return;
+        }
         var query = new Object();
         query.uid = uid;
         exports.getUser(query, cb);

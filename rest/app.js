@@ -183,14 +183,16 @@ app.get('/1/users/:uid/profile', function(req, res, next){
  post user_profile (create or update)
 
  input:
-        uid
-        icon(optional)
-        blog(optional)
-        desc(optional)
-        gender(optional)
-        location(optional)
-        job(optional)
-        company(optional)
+        params
+            uid
+        body
+            icon(optional)
+            blog(optional)
+            desc(optional)
+            gender(optional)
+            location(optional)
+            job(optional)
+            company(optional)
 
  output:
         user_profile
@@ -239,8 +241,17 @@ app.post('/1/users/:uid/activities', function(req, res, next){
     });
 });
 
-//artists reputation/point
-app.get('/1/users/:id/artist/award', function(req, res, next){
+/*
+ get user_wallet
+
+    input:
+        params
+            user_id
+
+    output:
+            user_wallet
+*/
+app.get('/1/users/:uid/wallet', function(req, res, next){
 
 });
 
@@ -275,11 +286,11 @@ app.post('/1/users/:id/works', function(req, res, next){
 
 });
 
-app.put('/1/users/:id/works', function(req, res, next){
+app.get('/1//works/:wid', function(req, res, next){
 
 });
 
-app.get('/1/works/:id', function(req, res, next){
+app.put('/1/works/:wid', function(req, res, next){
 
 });
 
