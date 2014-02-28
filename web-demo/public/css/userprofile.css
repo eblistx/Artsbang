@@ -1,0 +1,67 @@
+
+.profile_container{
+    padding:0 20px;
+    border:1px solid #fff;
+    color:#000;
+    margin-top:40px;
+    border-radius:8px;
+    background: white;
+}
+.profile_container h2{
+    height:25px;
+    font-size:20px;
+    font-weight:normal;
+}
+.profile_container .profile_stage p{
+    height:20px;
+    font-size:18px;
+    font-weight:normal;
+}
+.profile_container img{
+    float:left;
+    border-radius: 5px;
+    width: 100px;
+    height: 100px;
+}
+.profile_container .profile_stage{
+    margin: 20px auto 10px auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.profile_container .profile_list{
+    margin: 20px auto 10px auto;
+}
+@media(min-width: 800px){
+    .profile_container{
+        width:800px;
+    }
+}
+
+@media(max-width: 799px){
+    .profile_container{
+        width:100%;
+    }
+}
+
+.profile_container .profile_stage_title{
+    margin-left: 20px;
+}
+.profile_container .profile_stage_body{
+    height: 140px;
+    margin-left: 20px;
+}
+.profile_container .profile_stage_body button{
+    float: right;
+    margin-right: 20px;
+    width: 100px;
+}
+.profile_container .profile_stage_body_info{
+    margin-left: 120px;
+}
+.profile_container .profile_user_action_time{
+    float:right;
+    color:#999;
+}
+.profile_container .profile_info{
+    margin-left: 100px;
+}

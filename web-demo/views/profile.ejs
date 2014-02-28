@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<% include header.ejs %>
+<body>
+<% include navbar.ejs %>
+<% include login.ejs %>
+<div class="container profile_container">
+        <section class="profile_stage">
+            <div class="profile_stage_title">
+                <h2><span class="glyphicon glyphicon-user">
+                </span>David</h2>
+            </div>
+            <div class="profile_stage_body">
+
+                <img src="images/avatar.jpeg">
+                <div class="profile_stage_body_info">
+                    <p><span class="glyphicon glyphicon-map-marker">
+                    </span>
+                       上海
+                     </p>
+                    <p><span class="glyphicon glyphicon-briefcase"></span>  码农</p>
+                    <p>上海交通大学</p>
+                </div>
+                <button class="btn btn-primary" >关注</button>
+            </div>
+        </section>
+        <section class="profile_stage">
+            <div class="profile_stage_title">
+            <h2>个人简介：</h2>
+            </div>
+            <section class="profile_info">
+                <h3>个人简介</h3>
+            </section>
+        </section>
+
+    <section class="profile_list">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <span class="profile_user_action">David 关注了比赛</span>
+                <span class="profile_user_action_time">9小时前</span>
+                <p><a href="#">比赛地址</a></p>
+            </li>
+            <li class="list-group-item">
+                <span class="profile_user_action">David 关注了比赛</span>
+                <span class="profile_user_action_time">9小时前</span>
+                <p><a href="#">比赛地址</a></p>
+            </li>
+            <li class="list-group-item">
+                <span class="profile_user_action">David 关注了比赛</span>
+                <span class="profile_user_action_time">9小时前</span>
+                <p><a href="#">比赛地址</a></p>
+            </li>
+            <li class="list-group-item">
+                <span class="profile_user_action">David 关注了比赛</span>
+                <span class="profile_user_action_time">9小时前</span>
+                <p><a href="#">比赛地址</a></p>
+            </li>
+            <li class="list-group-item">
+                <span class="profile_user_action">David 关注了比赛</span>
+                <span class="profile_user_action_time">9小时前</span>
+                <p><a href="#">比赛地址</a></p>
+            </li>
+        </ul>
+    </section>
+
+    <% include footer.ejs %>
+</div>
+
+<% include javascripts.ejs %>
+</body>
+</html>

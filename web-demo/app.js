@@ -9,8 +9,8 @@ var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 
-var redis = require('redis');
-var db = redis.createClient();
+//var redis = require('redis');
+//var db = redis.createClient();
 
 var app = express();
 
@@ -27,21 +27,21 @@ app.use(express.cookieParser('your secret here'));
 app.use(express.session());
 
 //redis
-app.use(function(req, res, next){
-  var ua = req.headers['user-agent'];
-  debugger;
-  db.zadd('online', Date.now(), ua, next);
-});
-
-app.use(function(req, res, next){
-  var min = 60 * 1000;
-  var ago = Date.now() - min;
-  db.zrevrangebyscore('online', '+inf', ago, function(err, users){
-    if (err) return next(err);
-    req.online = users;
-    next();
-  });
-});
+//app.use(function(req, res, next){
+//  var ua = req.headers['user-agent'];
+//  debugger;
+//  db.zadd('online', Date.now(), ua, next);
+//});
+//
+//app.use(function(req, res, next){
+//  var min = 60 * 1000;
+//  var ago = Date.now() - min;
+//  db.zrevrangebyscore('online', '+inf', ago, function(err, users){
+//    if (err) return next(err);
+//    req.online = users;
+//    next();
+//  });
+//});
 
 app.use(app.router);
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
@@ -58,6 +58,15 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
+
+app.get('/login',function(req, res){
+    res.render('index', {"user":{"persona":"david"}});
+});
+
+app.get('/profile',function(req, res){
+    res.render('profile', {"user":{"persona":"david"}});
+});
+
 app.get('/users', user.list);
 
 http.createServer(app).listen(app.get('port'), function(){
