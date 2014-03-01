@@ -7,6 +7,16 @@ var log4js = logUtil.log4js();
 
 //app.set('port', process.env.PORT || 3000);
 //app.use(express.logger('dev'));
+
+//app.use(function (req, res, next) {
+//    var reqDomain = domain.create();
+//    reqDomain.on('error', function (err) {
+//        res.send(500, err.stack);
+//    });
+//
+//    reqDomain.run(next);
+//});
+
 app.use(express.bodyParser());
 app.use(log4js.connectLogger(logger, {level:log4js.levels.INFO}));
 app.use(app.router);
