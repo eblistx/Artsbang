@@ -3,6 +3,15 @@ var http = require('http');
 var qs = require('querystring');
 var rs = require('randomstring');
 var extend = require('node.extend');
+var uid = 1;
+var str = rs.generate(10);
+var postData = {};
+postData.email = str + '@ea.com';
+postData.persona = str;
+postData.nick = str;
+postData.role = 1;
+postData.regSource = 'test';
+postData.pwd = 'Welcome123';
 
 exports.createUserAccount = function (test) {
     test.expect(4);
@@ -17,14 +26,6 @@ exports.createUserAccount = function (test) {
      "pwd":"1234"
      }
      */
-    var str = rs.generate(10);
-    var postData = {};
-    postData.email = str + '@ea.com';
-    postData.persona = str;
-    postData.nick = str;
-    postData.role = 1;
-    postData.regSource = 'test';
-    postData.pwd = 'Welcome123';
 
     var content = JSON.stringify(postData);
 
@@ -51,6 +52,7 @@ exports.createUserAccount = function (test) {
         res.on('data', function (chunk) {
             console.log('BODY: ' + chunk);
             var data = JSON.parse(chunk);
+            uid = data.uid;
             test.equal(data.email, postData.email, 'email');
             test.equal(data.persona, postData.persona, 'persona');
             test.equal(data.nick, postData.nick, 'nick');
@@ -64,5 +66,42 @@ exports.createUserAccount = function (test) {
     });
 
     req.write(content);
+    req.end();
+}
+
+exports.readUserAccount = function (test) {
+    test.expect(1);
+
+    
+    var options = extend(true, config, {
+        path: '/1/users?uid='+uid,
+        method: 'get'
+    });
+
+    console.log("get options:\n", options);
+
+    var req = http.request(options, function (res) {
+        console.log('STATUS: ' + res.statusCode);
+
+        test.equal(res.statusCode, 200, 'statusCode');
+        //test.done();
+
+        console.log('HEADERS: ' + JSON.stringify(res.headers));
+        res.setEncoding('utf8');
+        res.on('data', function (chunk) {
+            console.log('BODY: ' + chunk);
+            var data = JSON.parse(chunk);
+            test.equal(data.email, postData.email, 'email');
+            test.equal(data.persona, postData.persona, 'persona');
+            test.equal(data.nick, postData.nick, 'nick');
+            test.done();
+        });
+    });
+
+    req.on('error', function (e) {
+        console.log('problem with request: ' + e.message);
+        test.done();
+    });
+    
     req.end();
 }
