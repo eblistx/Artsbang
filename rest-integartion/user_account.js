@@ -66,3 +66,7 @@ exports.createUserAccount = function (test) {
     req.write(content);
     req.end();
 }
+
+exports.getUserAccount = function(test){
+	test.done();
+}

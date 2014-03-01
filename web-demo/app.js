@@ -67,6 +67,10 @@ app.get('/profile',function(req, res){
     res.render('profile', {"user":{"persona":"david"}});
 });
 
+app.get('/contest/:cid',function(req, res){
+    res.render('contest', {"user":{"persona":"david"}});
+});
+
 app.get('/users', user.list);
 
 http.createServer(app).listen(app.get('port'), function(){
