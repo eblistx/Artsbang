@@ -375,6 +375,26 @@ app.delete('/1/relationship/', function(req, res, next){
     });
 });
 
+
+//contest
+app.get('/1/contest/:cid/follows', function(req, res, next){
+
+});
+
+app.post('/1/contest/:cid/follows', function(req, res, next){
+
+});
+
+//messages
+app.get('/1/users/:uid/messages', function(req, res, next){
+
+});
+
+app.post('/1/users/:uid/messages', function(req, res, next){
+
+});
+
+
 //works
 app.get('/1/users/:id/works', function(req, res, next){
 
