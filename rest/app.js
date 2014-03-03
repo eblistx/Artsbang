@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+var domain = require('domain');
 
 var logUtil = require('./util/logUtil.js');
 var logger = logUtil.logger('main');
@@ -8,23 +9,33 @@ var log4js = logUtil.log4js();
 //app.set('port', process.env.PORT || 3000);
 //app.use(express.logger('dev'));
 
-//app.use(function (req, res, next) {
-//    var reqDomain = domain.create();
-//    reqDomain.on('error', function (err) {
-//        res.send(500, err.stack);
-//    });
-//
-//    reqDomain.run(next);
-//});
+app.use(function (req, res, next) {
+    var reqDomain = domain.create();
+    reqDomain.on('error', function (err) {
+        logger.error(err);
+        if(!err.statusCode){
+            res.send(500, err.stack);
+        }else{
+            res.send(err.message, err.statusCode);
+        }
+        res.end();
+    });
+
+    reqDomain.run(next);
+});
 
 app.use(express.bodyParser());
 app.use(log4js.connectLogger(logger, {level:log4js.levels.INFO}));
 app.use(app.router);
+
 app.use(function(err, req, res, next) {
     if(!err) return next();
     logger.error(err);
-    if(!err.statusCode)err.statusCode = 500;
-    res.send(err.message, err.statusCode);
+    if(!err.statusCode){
+        res.send(500, err.stack);
+    }else{
+        res.send(err.message, err.statusCode);
+    }
     res.end();
 });
 
