@@ -58,12 +58,11 @@ var relationshipService = require('./service/relationship/relationshipService.js
         user
 */
 app.get('/1/users/auth', function(req, res, next){
-    userService.authUser(req.query, function(err, user){
+    userService.authUser(req.query.email, req.query.persona, req.query.pwd, function(err, user){
         if(err) next(err);
         res.end(user);
     });
 });
-
 
 /*
  post pwd
@@ -117,6 +116,25 @@ app.get('/1/users', function (req, res, next) {
  */
 app.get('/1/users/:uid', function (req, res, next) {
     userService.getUser(req.params, function (err, user) {
+        if(err) next(err);
+        res.end(user);
+    });
+});
+
+/*
+ get user_account by user_id
+
+ input:
+    params
+        uids (split by ,)
+
+    output:
+        list of user
+ */
+app.get('/1/bulkusers', function (req, res, next) {
+    var uids =req.query.uids.split(',');
+
+    userService.getUsers(uids, function (err, user) {
         if(err) next(err);
         res.end(user);
     });
@@ -375,11 +393,19 @@ app.delete('/1/relationship/', function(req, res, next){
     });
 });
 
+/*
+  get contest_follows
+  input
+        params
+            contest_id
 
-//contest
+  list
+        user_ids
+ */
 app.get('/1/contest/:cid/follows', function(req, res, next){
 
 });
+
 
 app.post('/1/contest/:cid/follows', function(req, res, next){
 

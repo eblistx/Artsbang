@@ -207,3 +207,20 @@ exports.updateUser = function (uid, params, cb) {
         exports.getUser(query, cb);
     });
 };
+
+exports.getUsers = function (uids, cb) {
+    var query = squel.select();
+    query.from(user_account.name);
+    query.where(user_account.user_id + " in (" + uids.join(',') +")");
+    var sql = query.toString();
+
+    pool.execute(sql, function (err, rows) {
+        if (err) {
+            cb(err, null);
+            return;
+        }
+        var users = new Array();
+        for (var i = 0; i < rows.length; i++) users.push(new User(rows[i]));
+        cb(null, users);
+    });
+};

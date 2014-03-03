@@ -8,12 +8,8 @@ var NotFoundError = require('../../error/notFoundError.js');
 var BadRequestError = require('../../error/badRequestError.js');
 var ConflictError = require('../../error/conflictError.js');
 
-exports.authUser = function (params, cb) {
-    var email = params.email;
-    var persona = params.persona;
-    var pwd = params.pwd;
-
-    var query = new Object();
+exports.authUser = function (email, persona, pwd, cb) {
+    var query = {};
     query.email = email;
     query.persona = persona;
 
@@ -240,5 +236,24 @@ exports.updateUser = function (uid, params, cb) {
             }
             cb(null, JSON.stringify(user));
         })
+    });
+}
+
+
+exports.getUsers = function (uids, cb) {
+    for(var i=0; i<uids.length; i++){
+        var uid = uids[i];
+        if (uid && !String.isPostINT(uid)) {
+            cb(new BadRequestError('Invalid user_id ' + uid), null);
+            return;
+        }
+    }
+
+    dao.getUsers(uids, function (err, users) {
+        if (err) {
+            cb(err, null);
+            return;
+        }
+        cb(null, JSON.stringify(users));
     });
 }
