@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<% include header.ejs %>
+<body>
+<% include navbar.ejs %>
+<% include login.ejs %>
+<div class="register_container container">
+    <legend>注册</legend>
+    <div class="col-lg-6 register_form">
+            <form id="signup" class="form-horizontal" method="post" action="/register">
+                <div class="control-group">
+                    <label class="control-label">用户名</label>
+
+                    <div class="controls">
+                        <div class="input-prepend">
+                            <input type="text" class="input-xlarge" id="persona" name="persona"
+                                   placeholder="用户名">
+                            <span class="error-msg"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">邮箱</label>
+
+                    <div class="controls">
+                        <div class="input-prepend">
+                            <input type="text" class="input-xlarge" id="email" name="email" placeholder="邮箱">
+                            <span class="error-msg"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">密码</label>
+
+                    <div class="controls">
+                        <div class="input-prepend">
+                            <input type="Password" id="passwd" class="input-xlarge" name="passwd"
+                                   placeholder="密码">
+                            <span class="error-msg">错误的密码</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label"></label>
+
+                    <div class="controls">
+                        <p>点击注册艺瓣网会员资格既表示您同意我们的<a href="/tos">注册协议</a></p>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label"></label>
+
+                    <div class="controls">
+                        <button type="submit" class="btn btn-success">注册</button>
+                    </div>
+                </div>
+            </form>
+    </div>
+    <div class="col-lg-4 register_with">
+        <div class="register_with-control">
+        <button type="submit" class="btn btn-success">注册</button>
+        </div>
+        <div class="register_with-control">
+        <button type="submit" class="btn btn-success">注册</button>
+        </div>
+    </div>
+
+</div>
+
+
+<% include javascripts.ejs %>
+</body>
+<% include footer.ejs %>
+</html>

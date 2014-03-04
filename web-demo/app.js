@@ -63,6 +63,10 @@ app.get('/login',function(req, res){
     res.render('index', {"user":{"persona":"david"}});
 });
 
+app.get('/register',function(req, res){
+    res.render('register');
+});
+
 app.get('/profile',function(req, res){
     res.render('profile', {"user":{"persona":"david"}});
 });

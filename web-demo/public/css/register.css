@@ -1,0 +1,38 @@
+.register_container {
+    margin-top: 60px;
+}
+
+.register_form {
+    border-right: 1px solid #ccc;
+}
+
+.form-horizontal .control-group {
+    margin-top: 10px;
+}
+
+.form-horizontal .control-label {
+    float: left;
+    width: 60px;
+    padding-top: 5px;
+    text-align: right;
+}
+
+.form-horizontal .controls {
+    margin-left: 80px;
+}
+
+.form-horizontal .input-xlarge {
+    width: 300px;
+}
+
+.form-horizontal .error-msg {
+   color: #ff0000;
+    margin-left: 10px;
+}
+
+.register_with {
+    float: right;
+    padding: 30px 200px 30px 200px;
+    text-align: center;
+    display: block;
+}
