@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <% include ../common/header.ejs %>
+    <link href="/css/index.css" rel="stylesheet">
+</head>
+<body>
+<% include ../common/navbar.ejs %>
+<% include ../common/login.ejs %>
+
+<div class="carousel-container">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="item active">
+                <img src="/images/unionpay.png" alt="Unionpay">
+
+                <div class="container">
+                    <div class="carousel-caption">
+                        <p><a class="btn btn-lg btn-primary" href="/contest/1" role="button">马上参加</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <img src="/images/sony.png" alt="Sony">
+
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1>索尼MDR耳机营销创意大赛</h1>
+
+                        <p>提出你的创意，赢取最高<code>RMB 50,000</code>大奖！</p>
+
+                        <p><a class="btn btn-lg btn-primary" href="#" role="button">马上参加</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span
+                    class="glyphicon glyphicon-chevron-left"></span></a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next"><span
+                    class="glyphicon glyphicon-chevron-right"></span></a>
+    </div>
+</div>
+
+<div class="container marketing">
+    <div class="row">
+        <div class="col">
+            <img src="/images/camera.png" alt="Camera">
+
+            <h2>成为一名独立艺术家</h2>
+
+            <p>已经有超过<b>5,000</b>名独立艺术家加入了艺瓣这个大家庭，并且赢取了总额超过<b>1,000,000元</b>的奖金。</p>
+
+            <p><a class="btn btn-default" href="/register" role="button">马上加入</a></p>
+        </div>
+        <div class="col">
+            <img src="/images/open.png" alt="Open">
+
+            <h2>在艺瓣平台上宣传你的品牌</h2>
+
+            <p>已经有超过<b>50家</b>知名企业在艺瓣上成功发布了项目，包括腾讯，银联，索尼....</p>
+
+            <p><a class="btn btn-default" href="/contact" role="button">联系我们</a></p>
+        </div>
+        <div class="col">
+            <img src="/images/gears.png" alt="Gears">
+
+            <h2>成为一名艺粉</h2>
+
+            <p>超过<b>10,000</b>名艺粉在艺瓣这个平台上为独立艺术家加油。</p>
+
+            <p><a class="btn btn-default" href="/register" role="button">马上加入</a></p>
+        </div>
+    </div>
+</div>
+<% include ../common/javascripts.ejs %>
+</body>
+    <% include ../common/footer.ejs %>
+</html>

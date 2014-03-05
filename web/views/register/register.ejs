@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<header>
+    <% include ../common/header.ejs %>
+    <link href="/css/register.css" rel="stylesheet">
+</header>
+<body>
+<% include ../common/navbar.ejs %>
+<% include ../common/login.ejs %>
+<div class=" register_out container ">
+<div class=" register_container container ">
+<legend>注册</legend>
+<div class="register_form">
+    <form id="signup" class="form-horizontal" method="post" action="/register">
+        <div class="control-group">
+            <label class="control-label">用户名</label>
+
+            <div class="controls">
+                <div class="input-prepend">
+                    <input type="text" class="input-xlarge" id="persona" name="persona"
+                           placeholder="用户名">
+                    <span class="error-msg"></span>
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">邮箱</label>
+
+            <div class="controls">
+                <div class="input-prepend">
+                    <input type="text" class="input-xlarge" id="email" name="email" placeholder="邮箱">
+                    <span class="error-msg"></span>
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">密码</label>
+
+            <div class="controls">
+                <div class="input-prepend">
+                    <input type="Password" id="passwd" class="input-xlarge" name="passwd"
+                           placeholder="密码">
+                    <span class="error-msg">错误的密码</span>
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">邀请码</label>
+
+            <div class="controls">
+                <div class="input-prepend">
+                    <input type="text" id="invite" class="input-xlarge" name="invite"
+                           placeholder="邀请码">
+                    <span class="error-msg"></span>
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label"></label>
+
+            <div class="controls">
+                <p>点击注册艺瓣网会员资格既表示您同意我们的<a href="/tos">用户协议</a></p>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label"></label>
+
+            <div class="controls">
+                <button type="submit" class="btn btn-success">注册</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="register-with">
+    <div class="register-with-control">
+        <a href="/register"class="btn btn-warning">使用微博帐号注册</a>
+    </div>
+    <div class="register-with-control">
+        <a href="/register"class="btn btn-warning">使用QQ帐号注册</a>
+    </div>
+    <div class="register-with-control">
+        <a href="/register"class="btn btn-warning">使用人人网帐号注册</a>
+    </div>
+    <div class="register-with-control">
+        <a href="/register"class="btn btn-warning">使用豆瓣帐号注册</a>
+    </div>
+</div>
+</div>
+</div>
+
+<% include ../common/javascripts.ejs %>
+</body>
+<% include ../common/footer.ejs %>
+</html>

@@ -1,0 +1,108 @@
+body {
+    padding-bottom: 40px;
+    color: #5a5a5a;
+    font-family: 'Open Sans','Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif;
+}
+
+.footer {
+    margin-top: 10px;
+    padding: 0px 20px 0px 20px;
+    text-align: center;
+    border-top: 1px solid #b6b6b6;
+    min-width: 1170px;
+}
+
+.footer-row{
+    width: 600px;
+    position: relative;
+    margin: 10px auto;
+}
+
+.footer-col{
+    width: 200px;
+    float: left;
+}
+
+.footer-col a {
+    font-size: 15px;
+}
+
+.footer-end {
+    margin-top: 20px;
+    text-align: center;
+    min-width: 1170px;
+}
+
+.navbar-default {
+    opacity: 0.9;
+}
+
+/* LoginBox
+--------------------------------------------------- */
+.loginBox{
+    text-align: center;
+    margin: 100px auto;
+    width:420px;
+    /*height:360px;*/
+    padding:0 20px;
+    border:1px solid #fff;
+    color:#000;
+    border-radius:8px;
+    background: white;
+    box-shadow:0 0 15px #222;
+    background: -moz-linear-gradient(top, #fff, #efefef 8%);
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#f6f6f6), to(#f4f4f4));
+    /*font:11px/1.5em 'Microsoft YaHei' ;*/
+    /*position: absolute;*/
+
+    /*left:50%;*/
+    /*top:50%;*/
+    /*margin-left:-210px;*/
+    /*margin-top:-200px;*/
+}
+
+@media (min-width:420px){
+    .loginBox{
+        width: 420px;
+    }
+}
+
+@media (max-width:419px){
+    .loginBox{
+        width: 100%;
+    }
+}
+
+.loginBox h2{
+    height:25px;
+    font-size:20px;
+    font-weight:normal;
+    font-family: 'Open Sans','Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif;
+}
+.loginBox h3{
+    height:20px;
+    font-size:18px;
+    font-weight:normal;
+    color:#999;
+    font-family: 'Open Sans','Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif;
+}
+
+.loginBox img{
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.nav-icon{
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+#navbar-avatar{
+    width: 35px;
+    height: 35px;
+    margin: -10px 15px -10px;
+}
+
+.about-container {
+    margin-top: 55px;
+}

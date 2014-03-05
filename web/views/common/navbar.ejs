@@ -1,0 +1,64 @@
+<div class="navbar-wrapper">
+    <div class="container">
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">艺瓣 Artsbang</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li id="nav-item-contest"><a href="/contest/1">竞赛</a></li>
+                        <!--<li><a href="#">展览厅</a></li>-->
+                        <!--<li><a href="#">独立艺术家社区</a></li>-->
+                        <!--<li class="dropdown">-->
+                            <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">关于艺瓣<b class="caret"></b></a>-->
+                            <!--<ul class="dropdown-menu">-->
+                                <!--<li><a href="#">艺瓣是什么</a></li>-->
+                                <!--<li><a href="#">艺瓣如何为独立艺术家服务</a></li>-->
+                                <!--<li><a href="#">艺瓣如何为品牌服务</a></li>-->
+                                <!--<li class="divider"></li>-->
+                                <!--<li class="dropdown-header">关注艺瓣</li>-->
+                                <!--<li><a href="#">新浪微博</a></li>-->
+                                <!--<li><a href="#">微信</a></li>-->
+                            <!--</ul>-->
+                        <!--</li>-->
+                        <li id="nav-item-about"><a href="/about">关于艺瓣</a></li>
+                    </ul>
+                    <% if(locals.user) { %>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                               <img id="navbar-avatar" src="/images/avatar.jpeg">
+                                 <span>
+                                    <%= user.persona %>
+                                </span>
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/profile"><i class="glyphicon glyphicon-user nav-icon"></i>我的主页</a></li>
+                                <li><a href="#"><i class="glyphicon glyphicon-cog nav-icon"></i>设置</a></li>
+                                <li><a href="#"><i class="glyphicon glyphicon-off nav-icon"></i>退出</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <% }else{ %>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/register">创建一个账户</a>
+                        </li>
+                        <li>
+                            <a data-toggle="modal" data-target="#loginForm">登录</a>
+                        </li>
+                    </ul>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
