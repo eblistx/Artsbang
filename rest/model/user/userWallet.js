@@ -1,14 +1,10 @@
-function UserPofile(db){
+function UserWallet(db){
     this.uid = db.USER_ID;
-    this.icon = db.ICON;
-    this.blog = db.BLOG;
-    this.desc = db.DESC;
-    this.gender = db.GENDER;
-    this.birth = db.BIRTH;
-    this.location = db.LOCATION;
-    this.job = db.JOB;
-    this.company = db.COMPANY;
-    this.verify = db.VERIFY;
+    this.point1 = db.POINT1;
+    this.point2 = db.POINT1;
+    this.point3 = db.POINT1;
+    this.point4 = db.POINT1;
+    this.point5 = db.POINT1;
 }
 
-module.exports = UserPofile;
+module.exports = UserWallet;

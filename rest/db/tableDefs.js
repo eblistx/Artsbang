@@ -17,6 +17,11 @@ tableDefs.user_profile = sqlHelper.tableDefine({
     columns: ["user_id", "icon", "blog", "desc", "gender", "birth", "location", "job", "company", "verify", "modify_time"]
 });
 
+tableDefs.user_wallet = sqlHelper.tableDefine({
+    name: "artsbang.user_wallet",
+    columns: ["user_id", "point1", "point2", "point3", "point4", "point5", "modify_time"]
+});
+
 tableDefs.activity = sqlHelper.tableDefine({
     name: "artsbang.activity",
     columns: ["activity_id", "user_id", "type", "content", "status", "modify_time"]
