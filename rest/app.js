@@ -40,10 +40,10 @@ app.use(function(err, req, res, next) {
 });
 
 var user = require('./routes/user');
+var userProfile = require('./routes/userProfile');
+var activity = require('./routes/activity');
 
 //services
-var userProfileService = require('./service/user/userProfileService.js');
-var activityService = require('./service/activity/activityService.js');
 var relationshipService = require('./service/relationship/relationshipService.js');
 
 
@@ -58,99 +58,39 @@ app.post('/1/users/search', user.searchUser);
 app.post('/1/users', user.createUser);
 app.put('/1/users/:uid', user.updateUser);
 
-
-/*
- get user_profile
-
- input:
-     params
-        user_id
-
- output:
-        user_profile
-*/
-app.get('/1/users/:uid/profile', function(req, res, next){
-    userProfileService.getUserProfile(req.params.uid, function(err, userProfile){
-        if(err) next(err);
-        res.end(userProfile);
-    });
-});
-
-/*
- post user_profile (create or update)
-
- input:
-        params
-            uid
-        body
-            icon(optional)
-            blog(optional)
-            desc(optional)
-            gender(optional)
-            location(optional)
-            job(optional)
-            company(optional)
-
- output:
-        user_profile
- */
-app.post('/1/users/:uid/profile', function(req, res, next){
-    userProfileService.createOrUpdateUserProfile(req.params.uid, req.body, function(err, userProfile){
-        if(err) next(err);
-        res.end(userProfile);
-    });
-});
-
-/*
- get user_profile
-
- input:
-    params
-        user_id
-
- output:
-        list of activities
- */
-app.get('/1/users/:uid/activities', function(req, res, next){
-    activityService.getUserActivity(req.params.uid, function(err, activites){
-        if(err) next(err);
-        res.end(activites);
-    })
-});
-
-/*
- get user_profile
-
- input:
-    params
-        user_id
-    body
-        type
-        content
-
- output:
-        activity
- */
-app.post('/1/users/:uid/activities', function(req, res, next){
-    activityService.createActivity(req.params.uid, req.body, function(err, activity){
-        if(err) next(err);
-        res.end(activity);
-    });
-});
+//user profile api
+app.get('/1/users/:uid/profile', userProfile.getUserProfile);
+app.post('/1/users/:uid/profile', userProfile.createOrUpdateUserProfile);
 
 /*
  get user_wallet
 
-    input:
-        params
-            user_id
+ input:
+ params
+ user_id
 
-    output:
-            user_wallet
-*/
+ output:
+ user_wallet
+ */
 app.get('/1/users/:uid/wallet', function(req, res, next){
 
 });
+
+//activity api
+app.get('/1/users/:uid/activities', activity.getActivities);
+app.post('/1/users/:uid/activities', activity.createActivity);
+
+//messages
+app.get('/1/users/:uid/messages', function(req, res, next){
+
+});
+
+app.post('/1/users/:uid/messages', function(req, res, next){
+
+});
+
+
+
 
 //artists mission
 app.get('/1/users/:id/artist/missions', function(req, res, next){
@@ -260,14 +200,7 @@ app.post('/1/contest/:cid/follows', function(req, res, next){
 
 });
 
-//messages
-app.get('/1/users/:uid/messages', function(req, res, next){
 
-});
-
-app.post('/1/users/:uid/messages', function(req, res, next){
-
-});
 
 
 //works

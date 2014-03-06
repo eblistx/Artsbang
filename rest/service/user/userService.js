@@ -1,12 +1,11 @@
 require('../../util/stringUtil.js');
 
-var logger = require('../../util/logUtil.js').logger('userService');
+var logger = require('../../util/logUtil').logger('userService');
 
-var dao = require('../../dao/user/userDAO.js');
+var dao = require('../../dao/user/userDAO');
 
-var NotFoundError = require('../../error/notFoundError.js');
-var BadRequestError = require('../../error/badRequestError.js');
-var ConflictError = require('../../error/conflictError.js');
+var NotFoundError = require('../../error/notFoundError');
+var ConflictError = require('../../error/conflictError');
 
 exports.authUser = function (params, cb) {
     var email = params.email;

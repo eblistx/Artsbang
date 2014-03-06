@@ -1,5 +1,4 @@
 var userService = require('../service/user/userService');
-
 var BadRequestError = require('../error/badRequestError');
 
 validateRole = function(role){

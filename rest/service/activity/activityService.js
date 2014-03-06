@@ -1,17 +1,8 @@
-require('../../util/stringUtil.js');
+require('../../util/stringUtil');
 
-var NotFoundError = require('../../error/notFoundError.js');
-var BadRequestError = require('../../error/badRequestError.js');
-var ConflictError = require('../../error/conflictError.js');
-
-var dao = require('../../dao/activity/activityDAO.js');
+var dao = require('../../dao/activity/activityDAO');
 
 exports.getUserActivity = function (uid, cb) {
-    if (!uid || !String.isPostINT(uid)) {
-        cb(new BadRequestError('Invalid user_id ' + uid), null);
-        return;
-    }
-
     dao.getUserActivities(uid, function (err, activities) {
         if (err) {
             cb(err, null);
@@ -22,12 +13,7 @@ exports.getUserActivity = function (uid, cb) {
 };
 
 exports.createActivity = function (uid, params, cb) {
-    if (!uid || !String.isPostINT(uid)) {
-        cb(new BadRequestError('Invalid user_id ' + uid), null);
-        return;
-    }
-
-    dao.createActivity(uid, params, function (err, activity) {
+   dao.createActivity(uid, params, function (err, activity) {
         if (err) {
             cb(err, null);
             return;

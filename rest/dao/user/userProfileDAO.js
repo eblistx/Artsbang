@@ -34,6 +34,7 @@ exports.createOrUpdateUserProfile = function (uid, params, cb) {
     var icon = params.icon;
     var blog = params.blog;
     var desc = params.desc;
+    var motto = params.motto;
     var gender = params.gender;
     var birth = params.birth;
     var location = params.location;
@@ -57,6 +58,7 @@ exports.createOrUpdateUserProfile = function (uid, params, cb) {
             if (icon)query.set(user_profile.icon, icon);
             if (blog)query.set(user_profile.blog, blog);
             if (desc)query.set(user_profile.desc, desc);
+            if (motto)query.set(user_profile.motto, motto);
             if (gender)query.set(user_profile.gender, gender);
             if (birth) query.set(user_profile.birth, birth);
             if (location)query.set(user_profile.location, location);
@@ -82,6 +84,7 @@ exports.createOrUpdateUserProfile = function (uid, params, cb) {
             query.set(user_profile.user_id, uid);
             if (icon)query.set(user_profile.icon, icon);
             if (blog)query.set(user_profile.blog, blog);
+            if (motto)query.set(user_profile.motto, motto);
             if (desc)query.set(user_profile.desc, desc);
             if (gender)query.set(user_profile.gender, gender);
             if (birth) query.set(user_profile.birth, birth);
