@@ -13,17 +13,17 @@ exports.authUser = function (params, cb) {
     var persona = params.persona;
     var pwd = params.pwd;
 
-    var query = new Object();
-    query.email = email;
-    query.persona = persona;
-
+    var query = {
+        email: email,
+        persona: persona
+    };
     dao.getUser(query, function (err, user) {
         if (err) {
             cb(err, null);
             return;
         }
         if (!user) {
-            cb(new NotFoundError('Not found user ' + JSON.stringify(query)), null);
+            cb(new NotFoundError('not found user ' + JSON.stringify(query)), null);
             return;
         }
         dao.authUser(user.uid, pwd, function (err, res) {
@@ -34,26 +34,16 @@ exports.authUser = function (params, cb) {
             if (res) {
                 cb(null, JSON.stringify(user));
             } else {
-                cb(new ConflictError('Invalid password'), null);
+                cb(new ConflictError('invalid password'), null);
             }
         })
     });
 }
 
 exports.setPassword = function (uid, pwd, cb) {
-    if (!uid || !String.isPostINT(uid)) {
-        cb(new BadRequestError('Invalid user_id ' + uid), null);
-        return;
-    }
-
-    //TODO
-    if (!pwd || !pwd.length) {
-        cb(new BadRequestError('Invalid pwd ' + pwd), null);
-        return;
-    }
-
-    var query = new Object();
-    query.uid = uid;
+    var query ={
+        uid:uid
+    };
 
     dao.getUser(query, function (err, user) {
         if (err) {
@@ -61,7 +51,7 @@ exports.setPassword = function (uid, pwd, cb) {
             return;
         }
         if (!user) {
-            cb(new NotFoundError('Not found user ' + JSON.stringify(query)), null);
+            cb(new NotFoundError('not found user ' + JSON.stringify(query)), null);
             return;
         }
         dao.setPassword(user.uid, pwd, function (err, res) {
@@ -75,26 +65,6 @@ exports.setPassword = function (uid, pwd, cb) {
 }
 
 exports.getUser = function (params, cb) {
-    var uid = params.uid;
-    var email = params.email;
-    var persona = params.persona;
-    var nick = params.nick;
-
-    if (!uid && !email && !persona && !nick) {
-        cb(new BadRequestError('Not enough params ' + JSON.stringify(params)), null);
-        return;
-    }
-
-    if (uid && !String.isPostINT(uid)) {
-        cb(new BadRequestError('Invalid user_id ' + uid), null);
-        return;
-    }
-
-    if ((email && !email.length) || (persona && !persona.length) || (nick && !nick.length)) {
-        cb(new BadRequestError('Empty params ' + JSON.stringify(params)), null);
-        return;
-    }
-
     dao.getUser(params, function (err, user) {
         if (err) {
             cb(err, null);
@@ -102,27 +72,13 @@ exports.getUser = function (params, cb) {
         }
         if (user) {
             cb(null, JSON.stringify(user));
-        }else{
-            cb(new NotFoundError('Not found user ' + JSON.stringify(query)), null);
+        } else {
+            cb(new NotFoundError('not found user ' + JSON.stringify(params)), null);
         }
     });
 }
 
 exports.searchUser = function (params, cb) {
-    var email = params.email;
-    var persona = params.persona;
-    var nick = params.nick;
-
-    if (!email && !persona && !nick) {
-        cb(new BadRequestError('Not enough params ' + JSON.stringify(params)), null);
-        return;
-    }
-
-    if ((email && !email.length) || (persona && !persona.length) || (nick && !nick.length)) {
-        cb(new BadRequestError('Empty params ' + JSON.stringify(params)), null);
-        return;
-    }
-
     dao.searchUser(params, function (err, users) {
         if (err) {
             cb(err, null);
@@ -133,32 +89,10 @@ exports.searchUser = function (params, cb) {
 }
 
 exports.createUser = function (params, cb) {
-    var email = params.email;
-    var persona = params.persona;
-    var nick = params.nick;
-    var role = params.role;
-    var pwd = params.pwd;
-
-    if (!email || !persona || !nick || !role) {
-        cb(new BadRequestError('Not enough params ' + JSON.stringify(params)), null);
-        return;
-    }
-
-    if (!dao.isLegalRole(role)) {
-        cb(new BadRequestError('Illegal role ' + JSON.stringify(params)), null);
-        return;
-    }
-
-    if (!email.length || !persona.length || !nick.length) {
-        cb(new BadRequestError('Empty params ' + JSON.stringify(params)), null);
-        return;
-    }
-
-    //TODO
-    if (!pwd || !pwd.length) {
-        cb(new BadRequestError('Invalid pwd ' + pwd), null);
-        return;
-    }
+    var email = params.email,
+        persona = params.persona,
+        homepage = params.homepage,
+        pwd = params.pwd;
 
     dao.searchUser(params, function (err, users) {
         if (err) {
@@ -175,8 +109,8 @@ exports.createUser = function (params, cb) {
                 if (artist.persona === persona) {
                     conflictFields.push('persona');
                 }
-                if (artist.nick === nick) {
-                    conflictFields.push('nick');
+                if (artist.homepage === homepage) {
+                    conflictFields.push('homepage');
                 }
             }
             cb(new ConflictError(JSON.stringify(conflictFields)), null);
@@ -189,7 +123,7 @@ exports.createUser = function (params, cb) {
             }
             exports.setPassword(user.uid, pwd, function (err, res) {
                 //TODO: need to revert here?
-                if (err)logger.error("Set password error, user_id = " + user.uid + ", detail: " + err);
+                if (err)logger.error("set password error, user_id = " + user.uid + ", detail: " + err);
                 cb(null, JSON.stringify(user));
             });
         })
@@ -197,40 +131,16 @@ exports.createUser = function (params, cb) {
 }
 
 exports.updateUser = function (uid, params, cb) {
-    if (!uid || !String.isPostINT(uid)) {
-        cb(new BadRequestError('Invalid user_id ' + uid), null);
-        return;
-    }
-
-    var email = params.email;
-    var persona = params.persona;
-    var nick = params.nick;
-    var role = params.role;
-
-    if (!email && !persona && !nick) {
-        cb(new BadRequestError('Not enough params ' + JSON.stringify(params)), null);
-        return;
-    }
-
-    if (!dao.isLegalRole(role)) {
-        cb(new BadRequestError('Illegal role ' + JSON.stringify(params)), null);
-        return;
-    }
-
-    if ((email && !email.length) || (persona && !persona.length) || (nick && !nick.length)) {
-        cb(new BadRequestError('Empty params ' + JSON.stringify(params)), null);
-        return;
-    }
-
-    var query = new Object();
-    query.uid = uid;
+    var query = {
+        uid: uid
+    };
     dao.getUser(query, function (err, user) {
         if (err) {
             cb(err, null);
             return;
         }
         if (!user) {
-            cb(new NotFoundError('Not found user ' + JSON.stringify(query)), null);
+            cb(new NotFoundError('not found user ' + JSON.stringify(query)), null);
             return;
         }
         dao.updateUser(uid, params, function (err, user) {

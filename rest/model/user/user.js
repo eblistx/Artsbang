@@ -2,7 +2,7 @@ function User(userdb){
     this.uid = userdb.USER_ID;
     this.email = userdb.EMAIL;
     this.persona = userdb.PERSONA;
-    this.nick = userdb.NICK;
+    this.homepage = userdb.HOMEPAGE;
     this.role = userdb.ROLE;
 }
 

@@ -2,6 +2,7 @@ function UserPofile(db){
     this.uid = db.USER_ID;
     this.icon = db.ICON;
     this.blog = db.BLOG;
+    this.motto = db.MOTTO;
     this.desc = db.DESC;
     this.gender = db.GENDER;
     this.location = db.LOCATION;

@@ -9,12 +9,12 @@ tableDefs.user_password = sqlHelper.tableDefine({
 
 tableDefs.user_account = sqlHelper.tableDefine({
     name: "artsbang.user_account",
-    columns: ["user_id", "email", "persona", "nick", "role", "status", "registration_source", "email_status", "create_time", "modify_time"]
+    columns: ["user_id", "email", "persona", "homepage", "role", "status", "registration_source", "email_status", "create_time", "modify_time"]
 });
 
 tableDefs.user_profile = sqlHelper.tableDefine({
     name: "artsbang.user_profile",
-    columns: ["user_id", "icon", "blog", "desc", "gender", "birth", "location", "job", "company", "verify", "modify_time"]
+    columns: ["user_id", "icon", "blog", "motto", "desc", "gender", "birth", "location", "job", "company", "verify", "modify_time"]
 });
 
 tableDefs.activity = sqlHelper.tableDefine({

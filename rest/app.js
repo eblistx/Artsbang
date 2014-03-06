@@ -1,14 +1,12 @@
 var express = require('express');
 var app = express();
-var domain = require('domain');
+var expressValidator = require('express-validator');
 
 var logUtil = require('./util/logUtil.js');
 var logger = logUtil.logger('main');
 var log4js = logUtil.log4js();
 
-//app.set('port', process.env.PORT || 3000);
-//app.use(express.logger('dev'));
-
+var domain = require('domain');
 app.use(function (req, res, next) {
     var reqDomain = domain.create();
     reqDomain.on('error', function (err) {
@@ -25,6 +23,8 @@ app.use(function (req, res, next) {
 });
 
 app.use(express.bodyParser());
+app.use(expressValidator());
+
 app.use(log4js.connectLogger(logger, {level:log4js.levels.INFO}));
 app.use(app.router);
 
@@ -39,150 +39,25 @@ app.use(function(err, req, res, next) {
     res.end();
 });
 
+var user = require('./routes/user');
+
 //services
-var userService = require('./service/user/userService.js');
 var userProfileService = require('./service/user/userProfileService.js');
 var activityService = require('./service/activity/activityService.js');
 var relationshipService = require('./service/relationship/relationshipService.js');
 
-/*
-  get auth
 
-  input:
-    query
-        email(optional)
-        persona(optional)
-        pwd
+//auth api
+app.get('/1/users/auth', user.authUser);
+app.post('/1/users/:uid/pwd', user.setPassword);
 
-  output:
-        user
-*/
-app.get('/1/users/auth', function(req, res, next){
-    userService.authUser(req.query, function(err, user){
-        if(err) next(err);
-        res.end(user);
-    });
-});
+//user account api
+app.get('/1/users', user.getUser);
+app.get('/1/users/:uid', user.getUser);
+app.post('/1/users/search', user.searchUser);
+app.post('/1/users', user.createUser);
+app.put('/1/users/:uid', user.updateUser);
 
-
-/*
- post pwd
-
- input:
-     params
-        uid
-     body
-        pwd
-
- output:
-    result(true or false)
- */
-app.post('/1/users/:uid/pwd', function (req, res, next) {
-    userService.setPassword(req.params.uid, req.body.pwd, function (err, result) {
-        if (err) next(err);
-        res.end(result);
-    });
-});
-
-/*
- get user_account
-
- input:
-    query
-        uid(optional)
-        email(optional)
-        persona(optional)
-        nick(optional)
-
- output:
-        user
- */
-app.get('/1/users', function (req, res, next) {
-    userService.getUser(req.query, function (err, user) {
-        if(err) next(err);
-        res.end(user);
-    });
-});
-
-
-/*
- get user_account by user_id
-
- input:
-     params
-        uid
-
- output:
-        user
- */
-app.get('/1/users/:uid', function (req, res, next) {
-    userService.getUser(req.params, function (err, user) {
-        if(err) next(err);
-        res.end(user);
-    });
-});
-
-/*
- put user_account by user_id
-
- input:
-    params
-        uid
-    body
-        email(optional)
-        persona(optional)
-        nick(optional)
-
- output:
-        user
- */
-app.put('/1/users/:uid', function(req, res, next){
-    userService.updateUser(req.params.uid, req.body, function(err, user){
-        if(err) next(err);
-        res.end(user);
-    });
-});
-
-/*
- post user_account
-
- input:
-    body
-        email
-        persona
-        nick
-        regSource(optional)
-        role
-        pwd
-
- output:
-        user
- */
-app.post('/1/users', function (req, res, next) {
-    userService.createUser(req.body, function (err, user) {
-        if(err) next(err);
-        res.end(user);
-    });
-});
-
-/*
- post search user_account
-
-    input:
-        body
-            email
-            persona
-            nick
-
- output:
-        list of user
- */
-app.post('/1/users/search', function (req, res, next) {
-    userService.searchUser(req.body, function (err, users) {
-        if(err) next(err);
-        res.end(users);
-    });
-});
 
 /*
  get user_profile

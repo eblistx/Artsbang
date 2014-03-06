@@ -85,23 +85,18 @@ exports.setPassword = function (uid, pwd, cb) {
     });
 }
 
-exports.isLegalRole = function (role) {
-    if (role != '1' && role != '2')return false;
-    return true;
-};
-
 exports.getUser = function (query, cb) {
     var uid = query.uid;
     var email = query.email;
     var persona = query.persona;
-    var nick = query.nick;
+    var homepage = query.homepage;
 
     var query = squel.select();
     query.from(user_account.name);
     if (uid) query.where(user_account.user_id + "='" + uid + "'");
     if (email) query.where(user_account.email + "='" + email + "'");
     if (persona) query.where(user_account.persona + "='" + persona + "'");
-    if (nick) query.where(user_account.nick + "='" + nick + "'");
+    if (homepage) query.where(user_account.nick + "='" + homepage + "'");
     var sql = query.toString();
 
     pool.execute(sql, function (err, rows) {
@@ -120,7 +115,7 @@ exports.getUser = function (query, cb) {
 exports.searchUser = function (query, cb) {
     var email = query.email;
     var persona = query.persona;
-    var nick = query.nick;
+    var homepage = query.homepage;
 
     var query = squel.select();
     query.from(user_account.name);
@@ -132,7 +127,7 @@ exports.searchUser = function (query, cb) {
     }
     if (nick) {
         if (where.length > 0) where += " OR ";
-        where += user_account.nick + " = '" + nick + "'";
+        where += user_account.homepage + " = '" + homepage + "'";
     }
     query.where(where);
 
@@ -142,7 +137,7 @@ exports.searchUser = function (query, cb) {
             cb(err, null);
             return;
         }
-        var users = new Array();
+        var users = [];
         for (var i = 0; i < rows.length; i++) users.push(new User(rows[i]));
         cb(null, users);
     });
@@ -151,7 +146,7 @@ exports.searchUser = function (query, cb) {
 exports.createUser = function (params, cb) {
     var email = params.email;
     var persona = params.persona;
-    var nick = params.nick;
+    var homepage = params.homepage;
     var role = params.role;
     var regSource = params.regSource;
 
@@ -160,7 +155,7 @@ exports.createUser = function (params, cb) {
     query.into(user_account.name)
         .set(user_account.email, email)
         .set(user_account.persona, persona)
-        .set(user_account.nick, nick)
+        .set(user_account.homepage, homepage)
         .set(user_account.status, 1)
         .set(user_account.role, role)
         .set(user_account.email_status, 0)
@@ -175,8 +170,9 @@ exports.createUser = function (params, cb) {
             return;
         }
         var uid = rows.insertId;
-        var query = new Object();
-        query.uid = uid;
+        var query = {
+            uid: uid
+        };
         exports.getUser(query, cb);
     });
 };
@@ -184,14 +180,14 @@ exports.createUser = function (params, cb) {
 exports.updateUser = function (uid, params, cb) {
     var email = params.email;
     var persona = params.persona;
-    var nick = params.nick;
+    var homepage = params.homepage;
     var role = params.role;
 
     var query = squel.update();
     query.table(user_account.name);
     if (email) query.set(user_account.email, email);
     if (persona) query.set(user_account.persona, persona);
-    if (nick) query.set(user_account.nick, nick);
+    if (homepage) query.set(user_account.homepage, homepage);
     if (role) query.set(user_account.role, role);
     query.set(user_account.modify_time, sqlHelper.dateFormat(new Date()));
     query.where(user_account.user_id + " = '" + uid + "'");
