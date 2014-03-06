@@ -4,6 +4,13 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "express": "3.x"
+    "express": "3.x",
+    "express-validator": "1.0.1",
+    "log4js": "0.6.10",
+    "moment": "2.5.1",
+    "mysql": "2.0.1",
+    "squel": "2.0.0",
+    "util": "0.10.3"
   }
 }
+
