@@ -1,5 +1,5 @@
 var BadRequestError = require('../../error/badRequestError');
-var relationshipService = require('../service/relationship/userRelationshipService');
+var relationshipService = require('../../service/relationship/contestRelationshipService');
 
 /*
  get follows
@@ -9,7 +9,7 @@ var relationshipService = require('../service/relationship/userRelationshipServi
  user_id
 
  output:
- list of user_ids
+ list of contest_ids
  */
 exports.getFollows = function(req, res, next){
     req.assert('uid', 'invalid user_id').notEmpty().isInt();
@@ -32,13 +32,13 @@ exports.getFollows = function(req, res, next){
 
  input:
  params
- user_id
+ contest_ids
 
  output:
  list of user_ids
  */
 exports.getFans = function(req, res, next){
-    req.assert('uid', 'invalid user_id').notEmpty().isInt();
+    req.assert('cid', 'invalid contest_id').notEmpty().isInt();
 
     var errors = req.validationErrors();
     if (errors) {
@@ -46,7 +46,7 @@ exports.getFans = function(req, res, next){
         return;
     }
 
-    relationshipService.getFans(req.params.uid, function(err, uids){
+    relationshipService.getFans(req.params.cid, function(err, uids){
         if(err) next(err);
         res.end(uids);
     });
@@ -57,15 +57,15 @@ exports.getFans = function(req, res, next){
 
  input:
  params
- leader_id
- follower_id
+ contest_id
+ user_id
 
  output:
- user_relationship
+ contest_relationship
  */
 exports.checkRelationship = function(req, res, next){
-    req.assert('lid', 'invalid leader_id').notEmpty().isInt();
-    req.assert('fid', 'invalid follower_id').notEmpty().isInt();
+    req.assert('cid', 'invalid contest_id').notEmpty().isInt();
+    req.assert('uid', 'invalid user_id').notEmpty().isInt();
 
     var errors = req.validationErrors();
     if (errors) {
@@ -73,7 +73,7 @@ exports.checkRelationship = function(req, res, next){
         return;
     }
 
-    relationshipService.checkRelationship(req.params.lid, req.params.fid, function(err, relationship){
+    relationshipService.checkRelationship(req.params.cid, req.params.uid, function(err, relationship){
         if(err) next(err);
         res.end(relationship);
     });
@@ -92,8 +92,8 @@ exports.checkRelationship = function(req, res, next){
  true
  */
 exports.createRelationship = function(req, res, next){
-    req.assert('uid', 'invalid user_id').notEmpty().isInt();
-    req.checkBody('uid', 'invalid follower_id').notEmpty().isInt();
+    req.assert('cid', 'invalid contest_id').notEmpty().isInt();
+    req.checkBody('uid', 'invalid user_id').notEmpty().isInt();
 
     var errors = req.validationErrors();
     if (errors) {
@@ -101,7 +101,7 @@ exports.createRelationship = function(req, res, next){
         return;
     }
 
-    relationshipService.createRelationship(req.params.uid, req.body.uid, function(err, result){
+    relationshipService.createRelationship(req.params.cid, req.body.uid, function(err, result){
         if(err) next(err);
         res.end(result);
     });
@@ -112,15 +112,15 @@ exports.createRelationship = function(req, res, next){
 
  input:
  params
- leader_id
- follower_id
+ contest_id
+ user_id
 
  output:
  true
  */
 exports.deleteRelationship = function(req, res, next){
-    req.assert('lid', 'invalid leader_id').notEmpty().isInt();
-    req.assert('fid', 'invalid follower_id').notEmpty().isInt();
+    req.assert('cid', 'invalid contest_id').notEmpty().isInt();
+    req.assert('uid', 'invalid user_id').notEmpty().isInt();
 
     var errors = req.validationErrors();
     if (errors) {
@@ -128,7 +128,7 @@ exports.deleteRelationship = function(req, res, next){
         return;
     }
 
-    relationshipService.deleteRelationship(req.params.lid, req.params.fid, function(err, result){
+    relationshipService.deleteRelationship(req.params.cid, req.params.uid, function(err, result){
         if(err) next(err);
         res.end(result);
     });

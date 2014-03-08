@@ -1,5 +1,5 @@
-var userProfileService = require('../service/user/userProfileService');
-var BadRequestError = require('../error/badRequestError');
+var userProfileService = require('../../service/user/userProfileService');
+var BadRequestError = require('../../error/badRequestError');
 
 /*
  get user_profile

@@ -39,16 +39,18 @@ app.use(function(err, req, res, next) {
     res.end();
 });
 
-var user = require('./routes/user');
-var userProfile = require('./routes/userProfile');
-var userWallet = require('./routes/userWallet');
+var user = require('./routes/user/user');
+var userProfile = require('./routes/user/userProfile');
+var userWallet = require('./routes/user/userWallet');
 
-var activity = require('./routes/activity');
+var activity = require('./routes/activity/activity');
 
-var message = require('./routes/message');
+var message = require('./routes/message/message');
 
-var userRelationship = require('./routes/userRelationship');
+var userRelationship = require('./routes/relationship/userRelationship');
+var contestRelationship = require('./routes/relationship/contestRelationship');
 
+var work = require('./routes/work/work');
 
 //auth api
 app.get('/1/users/auth', user.authUser);
@@ -77,59 +79,43 @@ app.get('/1/users/:uid/messages', message.getMessages);
 app.post('/1/users/:uid/messages', message.createMessage);
 
 //user relationship api
-app.get('/1/users/:uid/follows', userRelationship.getFollows);
+app.get('/1/users/:uid/follows/users', userRelationship.getFollows);
 app.get('/1/users/:uid/fans', userRelationship.getFans);
 app.get('/1/users/:lid/fans/:fid', userRelationship.checkRelationship);
 app.post('/1/users/:uid/fans', userRelationship.createRelationship);
 app.delete('/1/users/:lid/fans/:fid', userRelationship.deleteRelationship);
 
+//contest relationship api
+app.get('/1/users/:uid/follows/contests', contestRelationship.getFollows);
+app.get('/1/contests/:cid/fans', contestRelationship.getFans);
+app.get('/1/contests/:cid/fans/:uid', contestRelationship.checkRelationship);
+app.post('/1/contests/:cid/fans', contestRelationship.createRelationship);
+app.delete('/1/contests/:cid/fans/:uid', contestRelationship.deleteRelationship);
 
-//contest
-app.get('/1/contest/:cid/follows', function(req, res, next){
+//works api
+app.get('/1/users/:id/works', work.getUserWorks);
+app.post('/1/users/:id/works', work.createUserWorks);
+app.get('/1//works/:wid', work.getWork);
+app.put('/1/works/:wid', work.updateWork);
+app.delete('/1/works/:wid', work.deleteWork);
 
-});
-
-app.post('/1/contest/:cid/follows', function(req, res, next){
-
-});
-
-
-
-
-//works
-app.get('/1/users/:id/works', function(req, res, next){
-
-});
-
-app.post('/1/users/:id/works', function(req, res, next){
-
-});
-
-app.get('/1//works/:wid', function(req, res, next){
-
-});
-
-app.put('/1/works/:wid', function(req, res, next){
-
-});
-
-//vote
-app.get('/1/works/:id/voteNum', function(req, res, next){
-
-});
-
-app.post('/1/vote', function(req, res, next){
-
-});
-
-//artists mission
-app.get('/1/users/:id/artist/missions', function(req, res, next){
-
-});
-
-app.post('/1/users/:id/artist/mission/:mid', function(req, res, next){
-
-});
+////vote
+//app.get('/1/works/:id/voteNum', function(req, res, next){
+//
+//});
+//
+//app.post('/1/vote', function(req, res, next){
+//
+//});
+//
+////artists mission
+//app.get('/1/users/:id/artist/missions', function(req, res, next){
+//
+//});
+//
+//app.post('/1/users/:id/artist/mission/:mid', function(req, res, next){
+//
+//});
 
 app.listen(3000);
 console.log('Listening on port 3000');

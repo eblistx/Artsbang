@@ -1,5 +1,5 @@
-var userWalletService = require('../service/user/userWalletService');
-var BadRequestError = require('../error/badRequestError');
+var userWalletService = require('../../service/user/userWalletService');
+var BadRequestError = require('../../error/badRequestError');
 
 /*
  get user_wallet

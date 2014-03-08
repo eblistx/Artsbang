@@ -1,5 +1,5 @@
-var activityService = require('../service/activity/activityService');
-var BadRequestError = require('../error/badRequestError');
+var activityService = require('../../service/activity/activityService');
+var BadRequestError = require('../../error/badRequestError');
 
 /*
  get user_activities

@@ -1,5 +1,5 @@
-var messageService = require('../service/message/messageService');
-var BadRequestError = require('../error/badRequestError');
+var messageService = require('../../service/message/messageService');
+var BadRequestError = require('../../error/badRequestError');
 
 /*
  get user_messages

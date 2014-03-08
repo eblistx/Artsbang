@@ -37,4 +37,9 @@ tableDefs.userRelationship = sqlHelper.tableDefine({
     columns: ["relationship_id", "leader_id", "follower_id", "status", "modify_time"]
 });
 
+tableDefs.contestRelationship = sqlHelper.tableDefine({
+    name: "artsbang.contest_relationship",
+    columns: ["relationship_id", "contest_id", "follower_id", "status", "modify_time"]
+});
+
 module.exports = tableDefs;
