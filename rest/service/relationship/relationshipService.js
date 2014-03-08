@@ -4,7 +4,7 @@ var NotFoundError = require('../../error/notFoundError.js');
 var BadRequestError = require('../../error/badRequestError.js');
 var ConflictError = require('../../error/conflictError.js');
 
-var dao = require('../../dao/relationship/relationshipDAO.js');
+var dao = require('../../dao/relationship/userRelationshipDAO.js');
 
 exports.getRelationship = function (lid, fid, cb) {
     if (!lid || !String.isPostINT(lid)) {

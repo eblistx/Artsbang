@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS `relationship`;
-CREATE TABLE `relationship` (
+DROP TABLE IF EXISTS `user_relationship`;
+CREATE TABLE `user_relationship` (
   `RELATIONSHIP_ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `LEADER_ID` bigint(20) NOT NULL,
   `FOLLOWER_ID` bigint(20) NOT NULL,

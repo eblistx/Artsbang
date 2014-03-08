@@ -41,7 +41,11 @@ app.use(function(err, req, res, next) {
 
 var user = require('./routes/user');
 var userProfile = require('./routes/userProfile');
+var userWallet = require('./routes/userWallet');
+
 var activity = require('./routes/activity');
+
+var message = require('./routes/message');
 
 //services
 var relationshipService = require('./service/relationship/relationshipService.js');
@@ -62,44 +66,16 @@ app.put('/1/users/:uid', user.updateUser);
 app.get('/1/users/:uid/profile', userProfile.getUserProfile);
 app.post('/1/users/:uid/profile', userProfile.createOrUpdateUserProfile);
 
-/*
- get user_wallet
-
- input:
- params
- user_id
-
- output:
- user_wallet
- */
-app.get('/1/users/:uid/wallet', function(req, res, next){
-
-});
+//user wallet api
+app.get('/1/users/:uid/wallet', userWallet.getUserWallet);
 
 //activity api
 app.get('/1/users/:uid/activities', activity.getActivities);
 app.post('/1/users/:uid/activities', activity.createActivity);
 
 //messages
-app.get('/1/users/:uid/messages', function(req, res, next){
-
-});
-
-app.post('/1/users/:uid/messages', function(req, res, next){
-
-});
-
-
-
-
-//artists mission
-app.get('/1/users/:id/artist/missions', function(req, res, next){
-
-});
-
-app.post('/1/users/:id/artist/mission/:mid', function(req, res, next){
-
-});
+app.get('/1/users/:uid/messages', message.getMessages);
+app.post('/1/users/:uid/messages', message.createMessage);
 
 
 /*
@@ -226,6 +202,15 @@ app.get('/1/works/:id/voteNum', function(req, res, next){
 });
 
 app.post('/1/vote', function(req, res, next){
+
+});
+
+//artists mission
+app.get('/1/users/:id/artist/missions', function(req, res, next){
+
+});
+
+app.post('/1/users/:id/artist/mission/:mid', function(req, res, next){
 
 });
 
