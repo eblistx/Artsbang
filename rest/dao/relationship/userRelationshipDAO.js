@@ -12,7 +12,7 @@ var UserRelationship = require('../../model/relationship/userRelationship');
 //tables
 var userRelationship = tableDefs.userRelationship;
 
-exports.getUserRelationship = function (lid, fid, cb) {
+exports.checkRelationship = function (lid, fid, cb) {
     var query = squel.select();
     query.from(userRelationship.name)
         .where(userRelationship.leader_id + " = '" + lid + "'")
@@ -69,7 +69,7 @@ exports.getFans = function (uid, cb) {
     });
 }
 
-exports.createUserRelationship = function (lid, fid, cb) {
+exports.createRelationship = function (lid, fid, cb) {
     var query = squel.insert();
     query.into(userRelationship.name)
         .set(userRelationship.leader_id, lid)
@@ -86,7 +86,7 @@ exports.createUserRelationship = function (lid, fid, cb) {
     });
 }
 
-exports.deleteUserRelationship = function (lid, fid, cb) {
+exports.deleteRelationship = function (lid, fid, cb) {
     var query = squel.update();
     query.table(userRelationship.name)
         .set(userRelationship.status, 0)

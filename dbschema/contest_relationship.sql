@@ -1,0 +1,11 @@
+DROP TABLE IF EXISTS `contest_relationship`;
+CREATE TABLE `contest_relationship` (
+  `RELATIONSHIP_ID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `CONTEST_ID` bigint(20) NOT NULL,
+  `FOLLOWER_ID` bigint(20) NOT NULL,
+  `STATUS` smallint(6) NOT NULL DEFAULT 1, /* 0 for delete, 1 for active */
+  `MODIFY_DATE` datetime NOT NULL,
+  PRIMARY KEY (`RELATIONSHIP_ID`),
+  KEY `ACTIVITY_LEADER_ID_IDX` (`CONTEST_ID`),
+  KEY `ACTIVITY_FOLLOWER_ID_IDX` (`FOLLOWER_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;

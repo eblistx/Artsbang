@@ -47,8 +47,7 @@ var activity = require('./routes/activity');
 
 var message = require('./routes/message');
 
-//services
-var relationshipService = require('./service/relationship/relationshipService.js');
+var userRelationship = require('./routes/userRelationship');
 
 
 //auth api
@@ -73,98 +72,16 @@ app.get('/1/users/:uid/wallet', userWallet.getUserWallet);
 app.get('/1/users/:uid/activities', activity.getActivities);
 app.post('/1/users/:uid/activities', activity.createActivity);
 
-//messages
+//messages api
 app.get('/1/users/:uid/messages', message.getMessages);
 app.post('/1/users/:uid/messages', message.createMessage);
 
-
-/*
- get follows
-
- input:
-    params
-        user_id
-
- output:
-         list of user_ids
- */
-app.get('/1/users/:uid/follows', function(req, res, next){
-    relationshipService.getFollows(req.params.uid, function(err, uids){
-        if(err) next(err);
-        res.end(uids);
-    });
-});
-
-/*
- get fans
-
- input:
-    params
-        user_id
-
- output:
-        list of user_ids
- */
-app.get('/1/users/:uid/fans', function(req, res, next){
-    relationshipService.getFans(req.params.uid, function(err, uids){
-        if(err) next(err);
-        res.end(uids);
-    });
-});
-
-/*
- get relationship
-
- input:
-    body
-        leader_id
-        follower_id
-
- output:
-        relationship
- */
-app.get('/1/relationship/', function(req, res, next){
-    relationshipService.getRelationship(req.body.leader_id, req.body.follower_id, function(err, relationship){
-        if(err) next(err);
-        res.end(relationship);
-    });
-});
-
-/*
- post relationship
-
- input:
-    body
-       leader_id
-       follower_id
-
- output:
-        true
-*/
-app.post('/1/relationship/', function(req, res, next){
-    relationshipService.createRelationship(req.body.leader_id, req.body.follower_id, function(err, result){
-        if(err) next(err);
-        res.end(result);
-    });
-});
-
-/*
- delete relationship
-
- input:
-    body
-        leader_id
-        follower_id
-
- output:
-        true
- */
-app.delete('/1/relationship/', function(req, res, next){
-    relationshipService.deleteRelationship(req.body.leader_id, req.body.follower_id, function(err, result){
-        if(err) next(err);
-        res.end(result);
-    });
-});
+//user relationship api
+app.get('/1/users/:uid/follows', userRelationship.getFollows);
+app.get('/1/users/:uid/fans', userRelationship.getFans);
+app.get('/1/users/:lid/fans/:fid', userRelationship.checkRelationship);
+app.post('/1/users/:uid/fans', userRelationship.createRelationship);
+app.delete('/1/users/:lid/fans/:fid', userRelationship.deleteRelationship);
 
 
 //contest
