@@ -1,67 +1,160 @@
-
-.profile_container{
-    padding:0 20px;
+.profile-container {
+    /*padding:0 20px;*/
     border:1px solid #fff;
-    color:#000;
+    /*color:#000;*/
     margin-top:40px;
-    border-radius:8px;
-    background: white;
+    /*border-radius:8px;*/
+    /*background: white;*/
+    min-width: 1170px;
 }
-.profile_container h2{
-    height:25px;
-    font-size:20px;
-    font-weight:normal;
+
+.profile-container .info {
+    width: 60%;
+    float: left;
 }
-.profile_container .profile_stage p{
-    height:20px;
-    font-size:18px;
-    font-weight:normal;
+
+.profile-container .stage{
+    margin: 20px auto 10px auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    min-width: 500px;
 }
-.profile_container img{
+
+.profile-container .title{
+    margin: 20px 20px 10px 20px;
+}
+
+.profile-container .title .name{
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.profile-container .title .motto{
+   font-size: 18px;
+}
+
+.profile-container .user-profile-container {
+    height: 110px;
+    padding-left: 20px;
+    border-bottom: 1px solid #cccccc;
+}
+
+.profile-container .user-avatar img{
     float:left;
     border-radius: 5px;
     width: 100px;
     height: 100px;
 }
-.profile_container .profile_stage{
-    margin: 20px auto 10px auto;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-.profile_container .profile_list{
-    margin: 20px auto 10px auto;
-}
-@media(min-width: 800px){
-    .profile_container{
-        width:800px;
-    }
+
+.profile-container .user-profile {
+    margin-left: 110px;
 }
 
-@media(max-width: 799px){
-    .profile_container{
-        width:100%;
-    }
+.profile-container .user-profile .info-line {
+    border-bottom: 1px solid #cccccc;
+    padding-bottom: 5px;
+    margin:0px 20px 5px 0px;
 }
 
-.profile_container .profile_stage_title{
-    margin-left: 20px;
+.profile-container .user-profile .info-wrap {
+     border-right: 1px solid #cccccc;
+     padding: 0px 8px 0px 8px;
+ }
+
+.profile-container .user-profile .info-ico {
+  margin-right: 8px;
 }
-.profile_container .profile_stage_body{
-    height: 140px;
-    margin-left: 20px;
+
+.profile-container .user-profile .bio-line {
+    margin:0px 20px 5px 0px;
+    padding: 0px 20px 5px 10px;
 }
-.profile_container .profile_stage_body button{
+
+.profile-container .user-profile .bio-line p{
+    margin:0px;
+    padding: 0px 20px 3px 0px;
+}
+
+.profile-container .user-profile .info-wrap p{
+    font-size: 16px;
+}
+
+.user-relationship-container{
+    padding: 10px 20px 10px 20px;
+    display: block;
+}
+
+.user-relationship-container .relationship-group{
+    float: left;
+    margin-top: 10px;
+}
+
+.user-relationship-container .relationship-group .relationship-info{
+    padding: 5px 10px 5px 10px;
+    border-right: 1px solid #cccccc;
+}
+
+.user-relationship-container .button-group{
+    float: right;
+}
+
+.user-relationship-container .button-group .follow-btn{
+    width: 100px;
+    height: 40px;
+}
+
+.profile-container .user-profile-container button{
     float: right;
     margin-right: 20px;
     width: 100px;
 }
-.profile_container .profile_stage_body_info{
-    margin-left: 120px;
+
+.profile-container .works-container {
+    padding: 10px 20px 10px 20px;
 }
-.profile_container .profile_user_action_time{
-    float:right;
-    color:#999;
+
+.profile-container .works-container .works-title p{
+    font-size: 18px;
 }
-.profile_container .profile_info{
-    margin-left: 100px;
+
+.profile-container .works .work {
+    border: 1px solid #cccccc;
+    box-shadow: 0px 0px 3px #888888;
+    width: 200px;
+    float: left;
+    margin-right: 13px;
+    margin-bottom: 10px;
+}
+
+.profile-container .works .work img{
+    width: 200px;
+    height: 160px;
+}
+
+.profile-container .works .work h2{
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.profile-container .works .work p{
+    font-size: 14px;
+}
+
+.profile-container .artsbang-works {
+    width: 38%;
+    float: right;
+    margin-top: 20px;
+}
+
+.profile-container .list {
+    margin-top: -1px;
+}
+
+.profile-container .list .list-group-item{
+    border-top: 0px;
+    border-bottom: 1px solid #cccccc;
+    margin-top: 1px;
+    border-radius: 0px;
 }

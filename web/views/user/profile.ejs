@@ -7,72 +7,164 @@
 <body>
 <% include ../common/navbar.ejs %>
 <% include ../common/login.ejs %>
-<div class="container profile_container">
-    <section class="profile_stage">
-        <div class="profile_stage_title">
-            <h2><span class="glyphicon glyphicon-user">
-                </span>David</h2>
-        </div>
-        <div class="profile_stage_body">
-
-            <img src="images/avatar.jpeg">
-
-            <div class="profile_stage_body_info">
-                <p><span class="glyphicon glyphicon-map-marker">
-                    </span>
-                    上海
-                     </p>
-
-                <p><span class="glyphicon glyphicon-briefcase"></span> 码农</p>
-
-                <p>上海交通大学</p>
+<div class="container profile-container">
+    <div class="info">
+        <section class="stage">
+            <div class="title">
+                <span class="name">David,</span>
+                <span class="motto">不是艺术家</span>
             </div>
-            <button class="btn btn-primary">关注</button>
-        </div>
-    </section>
-    <section class="profile_stage">
-        <div class="profile_stage_title">
-            <h2>个人简介：</h2>
-        </div>
-        <section class="profile_info">
-            <h3>个人简介</h3>
+            <div class="user-profile-container">
+                <div class="user-avatar">
+                <img src="images/avatar.jpeg">
+                </div>
+                <div class="user-profile">
+                    <div class="info-line">
+                    <span class="info-wrap">
+                <span class="glyphicon glyphicon-map-marker info-ico">
+                    </span><span>上海，徐汇区</span>
+                     </span>
+                     <span class="info-wrap">
+                <span class="glyphicon glyphicon-briefcase info-ico">
+                    </span><span>程序员</span>
+                     </span>
+                    <span class="info-wrap">
+                <span>上海交通大学</span>
+                     </span>
+                         <span class="info-wrap">
+                <span>男性</span>
+                     </span>
+                    </div>
+                    <div class="bio-line">
+                <p>
+                    一个无聊的人，一个低级趣味的人
+                </p>
+                        <p>
+                           个人主页：<a href="http://weibo.com/1879815990" target="_blank">http://weibo.com/1879815990</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="user-relationship-container">
+                <div class="relationship-group">
+                    <span class="relationship-info">
+                        关注了 <a href="#">4</a> 人
+                    </span>
+                    <span class="relationship-info">
+                        关注者 <a href="#">4</a> 人
+                    </span>
+                    <span class="relationship-info">
+                        关注了 <a href="#">4</a> 场竞赛
+                    </span>
+                </div>
+                <div class="button-group">
+            <button class="btn btn-primary follow-btn">关注</button>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
         </section>
-    </section>
 
-    <section class="profile_list">
-        <ul class="list-group">
-            <li class="list-group-item">
-                <span class="profile_user_action">David 关注了比赛</span>
-                <span class="profile_user_action_time">9小时前</span>
+        <section class="stage works-container">
+            <div class="works-title">
+                <p>作品：</p>
+            </div>
+            <div class="works">
+                <div class="work">
+                    <img src="images/cover.png" href="#">
+                    <h2>标题1</h2>
+                    <p>分类：艺术， 音乐</p>
+                </div>
+                <div class="work">
+                    <img src="images/cover.png" href="#">
+                    <h2>标题1</h2>
+                    <p>分类：艺术， 音乐</p>
+                </div>
+                <div class="work">
+                    <img src="images/cover.png" href="#">
+                    <h2>标题1</h2>
+                    <p>分类：艺术， 音乐</p>
+                </div>
+                <div class="work">
+                    <img src="images/cover.png" href="#">
+                    <h2>标题1</h2>
+                    <p>分类：艺术， 音乐</p>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+        </section>
 
-                <p><a href="#">比赛地址</a></p>
-            </li>
-            <li class="list-group-item">
-                <span class="profile_user_action">David 关注了比赛</span>
-                <span class="profile_user_action_time">9小时前</span>
+    </div>
 
-                <p><a href="#">比赛地址</a></p>
-            </li>
-            <li class="list-group-item">
-                <span class="profile_user_action">David 关注了比赛</span>
-                <span class="profile_user_action_time">9小时前</span>
-
-                <p><a href="#">比赛地址</a></p>
-            </li>
-            <li class="list-group-item">
-                <span class="profile_user_action">David 关注了比赛</span>
-                <span class="profile_user_action_time">9小时前</span>
-
-                <p><a href="#">比赛地址</a></p>
-            </li>
-            <li class="list-group-item">
-                <span class="profile_user_action">David 关注了比赛</span>
-                <span class="profile_user_action_time">9小时前</span>
-
-                <p><a href="#">比赛地址</a></p>
-            </li>
+    <div class="artsbang-works">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#status" data-toggle="tab">最近动态</a></li>
+            <li><a href="#prize" data-toggle="tab">得奖作品</a></li>
         </ul>
-    </section>
+
+        <div class="tab-content">
+            <div class="tab-pane fade in active" id="status">
+                <section class="list">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <span class="profile_user_action">David 关注了比赛</span>
+                            <span class="profile_user_action_time">9小时前</span>
+
+                            <p><a href="#">比赛地址</a></p>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="profile_user_action">David 关注了比赛</span>
+                            <span class="profile_user_action_time">9小时前</span>
+
+                            <p><a href="#">比赛地址</a></p>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="profile_user_action">David 关注了比赛</span>
+                            <span class="profile_user_action_time">9小时前</span>
+
+                            <p><a href="#">比赛地址</a></p>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="profile_user_action">David 关注了比赛</span>
+                            <span class="profile_user_action_time">9小时前</span>
+
+                            <p><a href="#">比赛地址</a></p>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="profile_user_action">David 关注了比赛</span>
+                            <span class="profile_user_action_time">9小时前</span>
+
+                            <p><a href="#">比赛地址</a></p>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+            <div class="tab-pane fade" id="prize">
+                <section class="list">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <span class="profile_user_action">David 的作品ABC获得了金奖</span>
+                            <span class="profile_user_action_time">9小时前</span>
+
+                            <p><a href="#">作品地址</a></p>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="profile_user_action">David 的作品ABC获得了金奖</span>
+                            <span class="profile_user_action_time">9小时前</span>
+
+                            <p><a href="#">作品地址</a></p>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="profile_user_action">David 的作品ABC获得了金奖</span>
+                            <span class="profile_user_action_time">9小时前</span>
+
+                            <p><a href="#">作品地址</a></p>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+
+    </div>
 </div>
 <% include ../common/javascripts.ejs %>
 </body>
