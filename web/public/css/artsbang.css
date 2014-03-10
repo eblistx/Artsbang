@@ -4,12 +4,15 @@ body {
     font-family: 'Open Sans','Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif;
 }
 
+.container {
+    width: 1000px !important;
+}
+
 .footer {
     margin-top: 10px;
     padding: 0px 20px 0px 20px;
     text-align: center;
     border-top: 1px solid #b6b6b6;
-    min-width: 1170px;
 }
 
 .footer-row{
@@ -30,7 +33,6 @@ body {
 .footer-end {
     margin-top: 20px;
     text-align: center;
-    min-width: 1170px;
 }
 
 .navbar-default {
@@ -105,4 +107,62 @@ body {
 
 .about-container {
     margin-top: 55px;
+}
+
+.navbar-fixed-top {
+    position: absolute;
+    min-width: 1000px;
+}
+
+.container .navbar-header,
+.container .navbar-collapse {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+/* Always float the navbar header */
+.navbar-header {
+    float: left;
+}
+
+/* Undo the collapsing navbar */
+.navbar-collapse {
+    display: block !important;
+    height: auto !important;
+    padding-bottom: 0;
+    overflow: visible !important;
+}
+
+.navbar-brand {
+    margin-left: -15px;
+}
+
+/* Always apply the floated nav */
+.navbar-nav {
+    float: left;
+    margin: 0;
+}
+.navbar-nav > li {
+    float: left;
+}
+.navbar-nav > li > a {
+    padding: 15px;
+}
+
+/* Redeclare since we override the float above */
+.navbar-nav.navbar-right {
+    float: right;
+}
+
+/* Undo custom dropdowns */
+.navbar .open .dropdown-menu {
+    position: absolute;
+    float: left;
+    background-color: #fff;
+    border: 1px solid #cccccc;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-width: 0 1px 1px;
+    border-radius: 0 0 4px 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
 }

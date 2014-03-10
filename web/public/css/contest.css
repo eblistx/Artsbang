@@ -1,21 +1,20 @@
 .contest-container {
    margin-top: 60px;
-    min-width: 1170px;
 }
 
 .contest-header .contest-img {
     float: left;
-    margin-left: 40px;
+    margin-left: 20px;
 }
 
 .contest-header .contest-img img{
-    width: 600px;
-    height: 300px;
+    width: 500px;
+    height: 250px;
 }
 
 .contest-header .contest-title {
-    float: left;
-    margin: 0px 0px 0px 30px;
+    float: right;
+    margin-right: 10px;
 }
 
 .contest-header .contest-title
@@ -53,8 +52,8 @@ h2{
 }
 
 .contest-header .contest-title .button-group{
-    float: left;
-    width: 210px;
+    float: right;
+    width: 200px;
     margin-top: 10px;
 }
 
@@ -63,15 +62,15 @@ h2{
     margin-bottom: 10px;
 }
 
-.contest-progress {
-    display: inline-block;
-    min-width: 1090px;
-    margin: 20px 40px 20px 40px;
-}
+/*.contest-progress {*/
+    /*display: inline-block;*/
+    /*width: 100%;*/
+    /*margin: 20px 15px 20px 15px;*/
+/*}*/
 
 .contest-body {
     font-size: 20px;
-    margin: 20px 40px 20px 40px;
+    margin: 20px 20px 20px 20px;
 }
 
 .contest-body-content{

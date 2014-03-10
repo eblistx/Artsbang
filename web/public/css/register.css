@@ -1,14 +1,9 @@
-.register_container {
+.register-container {
     margin-top: 80px;
     margin-bottom: 40px;
-    width: 1000px;
     /*border: 1px solid #000000;*/
     padding: 20px 20px 60px 20px;
     background: #f4f4f4;
-}
-
-.register_out {
-    min-width: 1170px;
 }
 
 .register-form {
