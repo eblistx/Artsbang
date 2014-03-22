@@ -1,0 +1,15 @@
+{
+  "name": "weixin-vote",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "3.4.8",
+	"log4js": "0.6.10",
+    "moment": "2.5.1",
+    "mysql": "2.0.1",
+    "express-xml-bodyparser":"*"
+  }
+}

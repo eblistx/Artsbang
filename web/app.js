@@ -35,6 +35,8 @@ app.get('/contest/:cid', contest.contest);
 
 app.get('/profile', user.profile);
 
+app.get('/artistlist', user.artistlist);
+
 app.get('/about', statics.about);
 
 app.get('/login',function(req, res){

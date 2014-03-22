@@ -1,0 +1,32 @@
+.artist-list {
+    width: 32%;
+    float: left;
+    margin-left: 10px;
+    margin-top: 50px;
+    padding: 0px 3px 0px 3px;
+}
+
+.artist-list .list-header{
+    text-align: center;
+}
+
+.list-group-item {
+    padding: 5px 10px 5px 10px;
+    vertical-align: middle;
+}
+
+.list-group-item .cover {
+    border: 1px solid #cccccc;
+    box-shadow: 0px 0px 1px #888888;
+    width: 160px;
+    display: inline-block;
+}
+
+.list-group-item .cover img {
+    width: 160px;
+}
+
+.list-group-item .detail{
+    padding: 0px 10px 10px 10px;
+    display: inline-block;
+}
