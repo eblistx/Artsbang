@@ -4,6 +4,7 @@ var register = require('./routes/register');
 var contest = require('./routes/contest');
 var user = require('./routes/user');
 var statics = require('./routes/static');
+var weixin = require('./routes/weixin');
 var http = require('http');
 var path = require('path');
 
@@ -38,6 +39,8 @@ app.get('/profile', user.profile);
 app.get('/artistlist', user.artistlist);
 
 app.get('/about', statics.about);
+
+app.get('/weixin/contest', weixin.contest);
 
 app.get('/login',function(req, res){
     res.render('index', {"user":{"persona":"david"}});
